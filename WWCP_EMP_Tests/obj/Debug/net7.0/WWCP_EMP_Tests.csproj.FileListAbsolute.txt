@@ -1,0 +1,12 @@
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\bin\Debug\net7.0\WWCP_EMP_Tests.deps.json
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\bin\Debug\net7.0\WWCP_EMP_Tests.dll
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\bin\Debug\net7.0\WWCP_EMP_Tests.pdb
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\obj\Debug\net7.0\WWCP_EMP_Tests.csproj.AssemblyReference.cache
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\obj\Debug\net7.0\WWCP_EMP_Tests.GeneratedMSBuildEditorConfig.editorconfig
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\obj\Debug\net7.0\WWCP_EMP_Tests.AssemblyInfoInputs.cache
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\obj\Debug\net7.0\WWCP_EMP_Tests.AssemblyInfo.cs
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\obj\Debug\net7.0\WWCP_EMP_Tests.csproj.CoreCompileInputs.cache
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\obj\Debug\net7.0\WWCP_EMP_Tests.dll
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\obj\Debug\net7.0\refint\WWCP_EMP_Tests.dll
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\obj\Debug\net7.0\WWCP_EMP_Tests.pdb
+D:\Coding\OpenChargingCloud\Vanaheimr Electric\libs\WWCP_EMP\WWCP_EMP_Tests\obj\Debug\net7.0\ref\WWCP_EMP_Tests.dll

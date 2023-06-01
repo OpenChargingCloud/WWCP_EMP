@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "WWCP_EMP_Tests/1.0.0": {
+        "runtime": {
+          "WWCP_EMP_Tests.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WWCP_EMP_Tests/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
