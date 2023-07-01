@@ -423,7 +423,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
                                              DateTime?                StartTime          = null;
                                              TimeSpan?                Duration           = null;
-                                             eMobilityAccount_Id      eMAId              = default(eMobilityAccount_Id);
+                                             EMobilityAccount_Id      eMAId              = default;
                                              ChargingReservation_Id?  ReservationId      = null;
 
                                              // IntendedCharging
@@ -435,10 +435,10 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
                                              // AuthorizedIds
                                              var                      AuthTokens         = new List<AuthenticationToken>();
-                                             var                      eMAIds             = new List<eMobilityAccount_Id>();
+                                             var                      eMAIds             = new List<EMobilityAccount_Id>();
                                              var                      PINs               = new List<UInt32>();
 
-                                             if (Request.TryParseJObjectRequestBody(out JObject JSON,
+                                             if (Request.TryParseJObjectRequestBody(out var JSON,
                                                                                     out httpResponse,
                                                                                     AllowEmptyHTTPBody: true))
                                              {
@@ -508,7 +508,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                  if (!JSON.ParseMandatory("eMAId",
                                                                           "e-Mobility account identification",
                                                                           HTTPServer.DefaultServerName,
-                                                                          eMobilityAccount_Id.TryParse,
+                                                                          EMobilityAccount_Id.TryParse,
                                                                           out eMAId,
                                                                           Request,
                                                                           out httpResponse))
@@ -677,7 +677,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                          foreach (var jtoken in eMAIdsJSON)
                                                          {
 
-                                                             if (!eMobilityAccount_Id.TryParse(jtoken.Value<String>(), out eMobilityAccount_Id eMAId2))
+                                                             if (!EMobilityAccount_Id.TryParse(jtoken.Value<String>(), out var eMAId2))
                                                                  return SendEVSEReserved(
                                                                      new HTTPResponse.Builder(Request) {
                                                                          HTTPStatusCode  = HTTPStatusCode.BadRequest,
@@ -771,8 +771,8 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
-                                                             Location                   = HTTPPath.Parse("~/ext/BoschEBike/Reservations/" + result.Reservation.Id.ToString()),
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
+                                                             Location                   = Location.Parse("~/ext/BoschEBike/Reservations/" + result.Reservation.Id.ToString()),
                                                              Connection                 = "close",
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
@@ -816,7 +816,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "Unauthorized remote start or invalid credentials!")
@@ -835,7 +835,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "Unknown reservation identification!")
@@ -855,7 +855,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "Unknown EVSE!")
@@ -875,7 +875,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The EVSE is already reserved!")
@@ -895,7 +895,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The EVSE is already in use!")
@@ -915,7 +915,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The EVSE is out of service!")
@@ -935,7 +935,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The request did not succeed within the given time!")
@@ -955,7 +955,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "No reservation was possible!")
@@ -1025,10 +1025,10 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
                                   ChargingProduct_Id?      ChargingProductId  = null;
                                   ChargingReservation_Id?  ReservationId      = null;
-                                  ChargingSession_Id       SessionId          = default(ChargingSession_Id);
-                                  eMobilityAccount_Id      eMAId;
+                                  ChargingSession_Id?      SessionId          = default;
+                                  EMobilityAccount_Id      eMAId;
 
-                                  if (!Request.TryParseJObjectRequestBody(out JObject JSON,
+                                  if (!Request.TryParseJObjectRequestBody(out var JSON,
                                                                           out httpResponse,
                                                                           AllowEmptyHTTPBody: false))
 
@@ -1083,7 +1083,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                       if (!JSON.ParseMandatory("eMAId",
                                                                "e-Mobility account identification",
                                                                HTTPServer.DefaultServerName,
-                                                               eMobilityAccount_Id.TryParse,
+                                                               EMobilityAccount_Id.TryParse,
                                                                out eMAId,
                                                                Request,
                                                                out httpResponse))
@@ -1127,7 +1127,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   Date                       = DateTime.Now,
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
-                                                  AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                  AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                   ContentType                = HTTPContentType.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("SessionId",  response?.Session?.Id.ToString())
@@ -1146,7 +1146,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   Date                       = DateTime.Now,
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
-                                                  AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                  AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                   ContentType                = HTTPContentType.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description",  "Unauthorized remote start or invalid credentials!")
@@ -1165,7 +1165,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   Date                       = DateTime.Now,
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
-                                                  AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                  AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                   ContentType                = HTTPContentType.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description",  "The EVSE is already in use!")
@@ -1184,7 +1184,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   Date                       = DateTime.Now,
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
-                                                  AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                  AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                   ContentType                = HTTPContentType.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description", response.Description.IsNeitherNullNorEmpty() ? response.Description : I18NString.Create(Languages.en, "The EVSE is reserved!"))
@@ -1203,7 +1203,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   Date                       = DateTime.Now,
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
-                                                  AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                  AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                   ContentType                = HTTPContentType.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description",  "The EVSE is out of service!")
@@ -1222,7 +1222,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   Date                       = DateTime.Now,
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
-                                                  AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                  AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                   ContentType                = HTTPContentType.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description",  "The request did not succeed within the given period of time!")
@@ -1241,7 +1241,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   Date                       = DateTime.Now,
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
-                                                  AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                  AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                   ContentType                = HTTPContentType.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    response.Session != null
@@ -1313,7 +1313,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                              #region Parse JSON  [mandatory]
 
                                              ChargingSession_Id    SessionId  = default;
-                                             eMobilityAccount_Id?  eMAId      = null;
+                                             EMobilityAccount_Id?  eMAId      = null;
 
                                              if (!Request.TryParseJObjectRequestBody(out var JSON,
                                                                                      out httpResponse,
@@ -1340,7 +1340,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                  if (!JSON.ParseOptionalStruct2("eMAId",
                                                                                "e-Mobility account identification",
                                                                                HTTPServer.DefaultServerName,
-                                                                               eMobilityAccount_Id.TryParse,
+                                                                               EMobilityAccount_Id.TryParse,
                                                                                out eMAId,
                                                                                Request,
                                                                                out httpResponse))
@@ -1386,7 +1386,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                  Date                       = DateTime.Now,
                                                                  AccessControlAllowOrigin   = "*",
                                                                  AccessControlAllowMethods  = new[] { "POST" },
-                                                                 AccessControlAllowHeaders  = "Content-Type, Accept, Authorization"
+                                                                 AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" }
                                                              });
 
                                                      else
@@ -1397,10 +1397,10 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                  Date                       = DateTime.Now,
                                                                  AccessControlAllowOrigin   = "*",
                                                                  AccessControlAllowMethods  = new[] { "POST" },
-                                                                 AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                                 AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                                  ContentType                = HTTPContentType.JSON_UTF8,
                                                                  Content                    = new JObject(
-                                                                                                  new JProperty("KeepAlive", (Int32) response.ReservationHandling.KeepAliveTime.Value.TotalSeconds)
+                                                                                                  new JProperty("KeepAlive", (Int32) response.ReservationHandling.KeepAliveTime.TotalSeconds)
                                                                                               ).ToUTF8Bytes()
                                                              });
 
@@ -1416,7 +1416,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = new JObject(
                                                                                               new JProperty("description", "Unauthorized remote start or invalid credentials!")
@@ -1435,7 +1435,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = new JObject(
                                                                                               new JProperty("description", "Invalid SessionId!")
@@ -1454,7 +1454,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = new JObject(
                                                                                               new JProperty("description", "EVSE is out of service!")
@@ -1473,7 +1473,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = new JObject(
                                                                                               new JProperty("description", "EVSE is offline!")
@@ -1492,7 +1492,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Date                       = DateTime.Now,
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
-                                                             AccessControlAllowHeaders  = "Content-Type, Accept, Authorization",
+                                                             AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              ContentType                = HTTPContentType.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               response.SessionId != null

@@ -101,7 +101,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                   RemoteAuthentication              RemoteAuthentication,
                                                                   ChargingProduct_Id                ChargingProductId,
                                                                   IEnumerable<AuthenticationToken>  AuthTokens,
-                                                                  IEnumerable<eMobilityAccount_Id>  eMAIds,
+                                                                  IEnumerable<EMobilityAccount_Id>  eMAIds,
                                                                   IEnumerable<UInt32>               PINs,
                                                                   TimeSpan?                         RequestTimeout  = null);
 
@@ -119,7 +119,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                               CancellationToken                      CancellationToken,
                                                                               EventTracking_Id?                      EventTrackingId,
                                                                               ChargingReservation_Id                 ChargingReservationId,
-                                                                              eMobilityAccount_Id                    eMAId,
+                                                                              EMobilityAccount_Id                    eMAId,
                                                                               TimeSpan?                              RequestTimeout  = null);
 
 }
