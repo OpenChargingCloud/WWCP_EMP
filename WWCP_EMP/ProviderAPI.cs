@@ -67,9 +67,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         public const            String          WWWAuthenticationRealm              = "Open Charging Cloud";
 
-        public readonly static  HTTPMethod      RESERVE                             = new ("RESERVE",     IsSafe: false, IsIdempotent: true);
-        public readonly static  HTTPMethod      REMOTESTART                         = new ("REMOTESTART", IsSafe: false, IsIdempotent: true);
-        public readonly static  HTTPMethod      REMOTESTOP                          = new ("REMOTESTOP",  IsSafe: false, IsIdempotent: true);
+        public readonly static  HTTPMethod      RESERVE                             = HTTPMethod.Register("RESERVE",     IsSafe: false, IsIdempotent: true)!.Value;
+        public readonly static  HTTPMethod      REMOTESTART                         = HTTPMethod.Register("REMOTESTART", IsSafe: false, IsIdempotent: true)!.Value;
+        public readonly static  HTTPMethod      REMOTESTOP                          = HTTPMethod.Register("REMOTESTOP",  IsSafe: false, IsIdempotent: true)!.Value;
 
         #endregion
 
@@ -220,16 +220,16 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                            Boolean                           Autostart                         = false)
 
             : this(EMSP,
-                   new HTTPServer(TCPPort:                           HTTPServerPort ?? DefaultHTTPServerPort,
-                                  DefaultServerName:                 HTTPServerName,
-                                  ServerThreadName:                  ServerThreadName,
-                                  ServerThreadPriority:              ServerThreadPriority,
-                                  ServerThreadIsBackground:          ServerThreadIsBackground,
-                                  ConnectionIdBuilder:               ConnectionIdBuilder,
-                                  ConnectionTimeout:                 ConnectionTimeout,
-                                  MaxClientConnections:              MaxClientConnections,
-                                  DNSClient:                         DNSClient,
-                                  Autostart:                         false),
+                   new HTTPServer(HTTPPort:                  HTTPServerPort ?? DefaultHTTPServerPort,
+                                  DefaultServerName:         HTTPServerName,
+                                  ServerThreadName:          ServerThreadName,
+                                  ServerThreadPriority:      ServerThreadPriority,
+                                  ServerThreadIsBackground:  ServerThreadIsBackground,
+                                  ConnectionIdBuilder:       ConnectionIdBuilder,
+                                  ConnectionTimeout:         ConnectionTimeout,
+                                  MaxClientConnections:      MaxClientConnections,
+                                  DNSClient:                 DNSClient,
+                                  Autostart:                 false),
                    HTTPHostname,
                    URLPrefix ?? DefaultURLPrefix)
 
@@ -754,8 +754,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                              PINs,
 
                                                                              Request.Timestamp,
-                                                                             Request.CancellationToken,
-                                                                             Request.EventTrackingId);
+                                                                             Request.EventTrackingId,
+                                                                             Request.Timeout,
+                                                                             Request.CancellationToken);
 
 
                                              switch (result.Result)
@@ -1110,8 +1111,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                         RemoteAuthentication.FromRemoteIdentification(eMAId),
 
                                                                         Request.Timestamp,
-                                                                        Request.CancellationToken,
-                                                                        Request.EventTrackingId);
+                                                                        Request.EventTrackingId,
+                                                                        Request.Timeout,
+                                                                        Request.CancellationToken);
 
 
                                   switch (response.Result)
@@ -1367,8 +1369,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                                   RemoteAuthentication.FromRemoteIdentification(eMAId),
 
                                                                                   Request.Timestamp,
-                                                                                  Request.CancellationToken,
-                                                                                  Request.EventTrackingId);
+                                                                                  Request.EventTrackingId,
+                                                                                  Request.Timeout,
+                                                                                  Request.CancellationToken);
 
 
                                              switch (response.Result)
