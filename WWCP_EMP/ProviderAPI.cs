@@ -17,6 +17,8 @@
 
 #region Usings
 
+using System.Security.Authentication;
+
 using Newtonsoft.Json.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
@@ -202,34 +204,54 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         #region ProviderAPI(HTTPServerName = DefaultHTTPServerName, ...)
 
-        public ProviderAPI(EMobilityServiceProvider          EMSP,
+        public ProviderAPI(EMobilityServiceProvider             EMSP,
 
-                           String                            HTTPServerName                    = DefaultHTTPServerName,
-                           IPPort?                           HTTPServerPort                    = null,
-                           HTTPHostname?                     HTTPHostname                      = null,
-                           HTTPPath?                         URLPrefix                         = null,
+                           String                               HTTPServerName               = DefaultHTTPServerName,
+                           String?                              ServiceName                  = null,
+                           IPPort?                              HTTPServerPort               = null,
+                           HTTPHostname?                        HTTPHostname                 = null,
+                           HTTPPath?                            URLPrefix                    = null,
 
-                           String?                           ServerThreadName                  = null,
-                           ThreadPriority                    ServerThreadPriority              = ThreadPriority.AboveNormal,
-                           Boolean                           ServerThreadIsBackground          = true,
-                           ConnectionIdBuilder?              ConnectionIdBuilder               = null,
-                           TimeSpan?                         ConnectionTimeout                 = null,
-                           UInt32                            MaxClientConnections              = TCPServer.__DefaultMaxClientConnections,
+                           ServerCertificateSelectorDelegate?   ServerCertificateSelector    = null,
+                           RemoteCertificateValidationHandler?  ClientCertificateValidator   = null,
+                           LocalCertificateSelectionHandler?    ClientCertificateSelector    = null,
+                           SslProtocols?                        AllowedTLSProtocols          = null,
+                           Boolean?                             ClientCertificateRequired    = null,
+                           Boolean?                             CheckCertificateRevocation   = null,
 
-                           DNSClient?                        DNSClient                         = null,
-                           Boolean                           AutoStart                         = false)
+                           ServerThreadNameCreatorDelegate?     ServerThreadNameCreator      = null,
+                           ServerThreadPriorityDelegate?        ServerThreadPrioritySetter   = null,
+                           Boolean?                             ServerThreadIsBackground     = null,
+                           ConnectionIdBuilder?                 ConnectionIdBuilder          = null,
+                           TimeSpan?                            ConnectionTimeout            = null,
+                           UInt32?                              MaxClientConnections         = null,
+
+                           DNSClient?                           DNSClient                    = null,
+                           Boolean                              AutoStart                    = false)
 
             : this(EMSP,
-                   new HTTPServer(HTTPPort:                  HTTPServerPort ?? DefaultHTTPServerPort,
-                                  DefaultServerName:         HTTPServerName,
-                                  ServerThreadName:          ServerThreadName,
-                                  ServerThreadPriority:      ServerThreadPriority,
-                                  ServerThreadIsBackground:  ServerThreadIsBackground,
-                                  ConnectionIdBuilder:       ConnectionIdBuilder,
-                                  ConnectionTimeout:         ConnectionTimeout,
-                                  MaxClientConnections:      MaxClientConnections,
-                                  DNSClient:                 DNSClient,
-                                  AutoStart:                 false),
+                   new HTTPServer(
+                       HTTPServerPort ?? DefaultHTTPServerPort,
+                       HTTPServerName,
+                       ServiceName,
+
+                       ServerCertificateSelector,
+                       ClientCertificateValidator,
+                       ClientCertificateSelector,
+                       AllowedTLSProtocols,
+                       ClientCertificateRequired,
+                       CheckCertificateRevocation,
+
+                       ServerThreadNameCreator,
+                       ServerThreadPrioritySetter,
+                       ServerThreadIsBackground,
+                       ConnectionIdBuilder,
+                       ConnectionTimeout,
+                       MaxClientConnections,
+
+                       DNSClient,
+                       false
+                   ),
                    HTTPHostname,
                    URLPrefix ?? DefaultURLPrefix)
 
