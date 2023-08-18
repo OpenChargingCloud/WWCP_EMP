@@ -2374,7 +2374,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                 {
 
                     if (!SessionId.HasValue)
-                        SessionId = ChargingSession_Id.NewRandom;
+                        SessionId = ChargingSession_Id.NewRandom(ChargingLocation?.ChargingStationOperatorId ?? ChargingStationOperator_Id.Parse("XX-XXX"));
 
                     SessionDatabase.TryAdd(SessionId.Value, new SessionInfo(LocalAuthentication));
 

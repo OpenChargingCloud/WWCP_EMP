@@ -1211,7 +1211,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                   ContentType                = HTTPContentType.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
-                                                                                   new JProperty("description", response.Description.IsNeitherNullNorEmpty() ? response.Description : I18NString.Create(Languages.en, "The EVSE is reserved!"))
+                                                                                   new JProperty("description", response.Description.IsNotNullOrEmpty() ? response.Description : I18NString.Create(Languages.en, "The EVSE is reserved!"))
                                                                                ).ToUTF8Bytes()
                                               });
 
@@ -1272,7 +1272,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                                        ? new JProperty("SessionId",  response.Session.Id.ToString())
                                                                                        : null,
                                                                                    new JProperty("Result",      response.Result.ToString()),
-                                                                                   new JProperty("description", response.Description.IsNeitherNullNorEmpty() ? response.Description : I18NString.Create(Languages.en, "General error!"))
+                                                                                   new JProperty("description", response.Description.IsNotNullOrEmpty() ? response.Description : I18NString.Create(Languages.en, "General error!"))
                                                                                ).ToUTF8Bytes()
                                               });
 
@@ -1524,7 +1524,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                                                   ? new JProperty("SessionId",  response.SessionId.ToString())
                                                                                                   : null,
                                                                                               new JProperty("Result",      response.Result.ToString()),
-                                                                                              new JProperty("description", response.Description.IsNeitherNullNorEmpty() ? response.Description : I18NString.Create(Languages.en, "General error!"))
+                                                                                              new JProperty("description", response.Description.IsNotNullOrEmpty() ? response.Description : I18NString.Create(Languages.en, "General error!"))
                                                                                           ).ToUTF8Bytes()
                                                          });
 
