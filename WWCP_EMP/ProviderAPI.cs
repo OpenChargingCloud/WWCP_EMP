@@ -460,7 +460,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                              var                      eMAIds             = new List<EMobilityAccount_Id>();
                                              var                      PINs               = new List<UInt32>();
 
-                                             if (Request.TryParseJObjectRequestBody(out var JSON,
+                                             if (Request.TryParseJSONObjectRequestBody(out var JSON,
                                                                                     out httpResponse,
                                                                                     AllowEmptyHTTPBody: true))
                                              {
@@ -1051,7 +1051,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                   ChargingSession_Id?      SessionId          = default;
                                   EMobilityAccount_Id      eMAId;
 
-                                  if (!Request.TryParseJObjectRequestBody(out var JSON,
+                                  if (!Request.TryParseJSONObjectRequestBody(out var JSON,
                                                                           out httpResponse,
                                                                           AllowEmptyHTTPBody: false))
 
@@ -1339,7 +1339,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                              ChargingSession_Id    SessionId  = default;
                                              EMobilityAccount_Id?  eMAId      = null;
 
-                                             if (!Request.TryParseJObjectRequestBody(out var JSON,
+                                             if (!Request.TryParseJSONObjectRequestBody(out var JSON,
                                                                                      out httpResponse,
                                                                                      AllowEmptyHTTPBody: false))
 
