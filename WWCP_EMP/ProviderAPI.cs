@@ -768,6 +768,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                              null,
                                                                              null,
                                                                              RemoteAuthentication.FromRemoteIdentification(eMAId),
+                                                                             null, //AuthenticationPath,
                                                                              ChargingProductId.HasValue    // of IntendedCharging
                                                                                  ? new ChargingProduct(ChargingProductId.Value)
                                                                                  : null,
@@ -1131,6 +1132,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                         SessionId,
                                                                         null,
                                                                         RemoteAuthentication.FromRemoteIdentification(eMAId),
+                                                                        null, // AuthenticationPath,
 
                                                                         Request.Timestamp,
                                                                         Request.EventTrackingId,
@@ -1389,6 +1391,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                                   ReservationHandling.Close, //ReservationHandling.KeepAlive(TimeSpan.FromMinutes(1)), // ToDo: Parse this property!
                                                                                   null,
                                                                                   RemoteAuthentication.FromRemoteIdentification(eMAId),
+                                                                                  null, // AuthenticationPath,
 
                                                                                   Request.Timestamp,
                                                                                   Request.EventTrackingId,
