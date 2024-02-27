@@ -69,9 +69,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         public const            String          WWWAuthenticationRealm              = "Open Charging Cloud";
 
-        public readonly static  HTTPMethod      RESERVE                             = HTTPMethod.Register("RESERVE",     IsSafe: false, IsIdempotent: true)!.Value;
-        public readonly static  HTTPMethod      REMOTESTART                         = HTTPMethod.Register("REMOTESTART", IsSafe: false, IsIdempotent: true)!.Value;
-        public readonly static  HTTPMethod      REMOTESTOP                          = HTTPMethod.Register("REMOTESTOP",  IsSafe: false, IsIdempotent: true)!.Value;
+        public readonly static  HTTPMethod      RESERVE                             = HTTPMethod.Parse("RESERVE",     IsSafe: false, IsIdempotent: true);
+        public readonly static  HTTPMethod      REMOTESTART                         = HTTPMethod.Parse("REMOTESTART", IsSafe: false, IsIdempotent: true);
+        public readonly static  HTTPMethod      REMOTESTOP                          = HTTPMethod.Parse("REMOTESTOP",  IsSafe: false, IsIdempotent: true);
 
         #endregion
 
@@ -405,7 +405,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
             AddMethodCallback(HTTPHostname,
                                          RESERVE,
                                          URLPrefix + "/EVSEs/{EVSEId}",
-                                         HTTPContentType.JSON_UTF8,
+                                         HTTPContentType.Application.JSON_UTF8,
                                          HTTPDelegate: async Request => {
 
                                              SendReserveEVSE(Request);
@@ -482,7 +482,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                          return SendEVSEReserved(
                                                              new HTTPResponse.Builder(Request) {
                                                                  HTTPStatusCode  = HTTPStatusCode.BadRequest,
-                                                                 ContentType     = HTTPContentType.JSON_UTF8,
+                                                                 ContentType     = HTTPContentType.Application.JSON_UTF8,
                                                                  Content         = new JObject(new JProperty("description", "The starting time must be in the future!")).ToUTF8Bytes()
                                                              });
 
@@ -671,7 +671,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                  return SendEVSEReserved(
                                                                      new HTTPResponse.Builder(Request) {
                                                                          HTTPStatusCode  = HTTPStatusCode.BadRequest,
-                                                                         ContentType     = HTTPContentType.JSON_UTF8,
+                                                                         ContentType     = HTTPContentType.Application.JSON_UTF8,
                                                                          Content         = new JObject(new JProperty("description", "Invalid AuthorizedIds/RFIDId '" + jtoken.Value<String>() + "' section!")).ToUTF8Bytes()
                                                                      });
 
@@ -703,7 +703,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                  return SendEVSEReserved(
                                                                      new HTTPResponse.Builder(Request) {
                                                                          HTTPStatusCode  = HTTPStatusCode.BadRequest,
-                                                                         ContentType     = HTTPContentType.JSON_UTF8,
+                                                                         ContentType     = HTTPContentType.Application.JSON_UTF8,
                                                                          Content         = new JObject(new JProperty("description", "Invalid AuthorizedIds/eMAIds '" + jtoken.Value<String>() + "' section!")).ToUTF8Bytes()
                                                                      });
 
@@ -726,7 +726,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                      //        return SendEVSEReserved(
                                                      //            new HTTPResponse.Builder(Request) {
                                                      //                HTTPStatusCode  = HTTPStatusCode.BadRequest,
-                                                     //                ContentType     = HTTPContentType.JSON_UTF8,
+                                                     //                ContentType     = HTTPContentType.Application.JSON_UTF8,
                                                      //                Content         = new JObject(new JProperty("description", "Invalid AuthorizedIds/PINs section!")).ToUTF8Bytes()
                                                      //            });
 
@@ -739,7 +739,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                      //            return SendEVSEReserved(
                                                      //                new HTTPResponse.Builder(Request) {
                                                      //                    HTTPStatusCode  = HTTPStatusCode.BadRequest,
-                                                     //                    ContentType     = HTTPContentType.JSON_UTF8,
+                                                     //                    ContentType     = HTTPContentType.Application.JSON_UTF8,
                                                      //                    Content         = new JObject(new JProperty("description", "Invalid AuthorizedIds/PINs '" + jtoken.Value<String>() + "' section!")).ToUTF8Bytes()
                                                      //                });
 
@@ -798,7 +798,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              Location                   = Location.Parse("~/ext/BoschEBike/Reservations/" + result.Reservation.Id.ToString()),
                                                              Connection                 = "close",
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("ReservationId",           result.Reservation.Id.       ToString()),
                                                                                               new JProperty("StartTime",               result.Reservation.StartTime.ToIso8601()),
@@ -841,7 +841,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "Unauthorized remote start or invalid credentials!")
                                                                                           ).ToUTF8Bytes()
@@ -860,7 +860,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "Unknown reservation identification!")
                                                                                           ).ToUTF8Bytes(),
@@ -880,7 +880,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "Unknown EVSE!")
                                                                                           ).ToUTF8Bytes(),
@@ -900,7 +900,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The EVSE is already reserved!")
                                                                                           ).ToUTF8Bytes(),
@@ -920,7 +920,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The EVSE is already in use!")
                                                                                           ).ToUTF8Bytes(),
@@ -940,7 +940,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The EVSE is out of service!")
                                                                                           ).ToUTF8Bytes(),
@@ -960,7 +960,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The request did not succeed within the given time!")
                                                                                           ).ToUTF8Bytes(),
@@ -980,7 +980,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "No reservation was possible!")
                                                                                           ).ToUTF8Bytes(),
@@ -1009,7 +1009,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
             AddMethodCallback(HTTPHostname,
                               REMOTESTART,
                               URLPrefix + "/EVSEs/{EVSEId}",
-                              HTTPContentType.JSON_UTF8,
+                              HTTPContentType.Application.JSON_UTF8,
                               HTTPDelegate: async Request => {
 
                                   SendRemoteStartEVSE(Request);
@@ -1154,7 +1154,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
                                                   AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                  ContentType                = HTTPContentType.JSON_UTF8,
+                                                  ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("SessionId",  response?.Session?.Id.ToString())
                                                                                ).ToUTF8Bytes()
@@ -1173,7 +1173,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
                                                   AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                  ContentType                = HTTPContentType.JSON_UTF8,
+                                                  ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description",  "Unauthorized remote start or invalid credentials!")
                                                                                ).ToUTF8Bytes()
@@ -1192,7 +1192,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
                                                   AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                  ContentType                = HTTPContentType.JSON_UTF8,
+                                                  ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description",  "The EVSE is already in use!")
                                                                                ).ToUTF8Bytes()
@@ -1211,7 +1211,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
                                                   AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                  ContentType                = HTTPContentType.JSON_UTF8,
+                                                  ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description", response.Description.IsNotNullOrEmpty() ? response.Description : I18NString.Create(Languages.en, "The EVSE is reserved!"))
                                                                                ).ToUTF8Bytes()
@@ -1230,7 +1230,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
                                                   AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                  ContentType                = HTTPContentType.JSON_UTF8,
+                                                  ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description",  "The EVSE is out of service!")
                                                                                ).ToUTF8Bytes()
@@ -1249,7 +1249,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
                                                   AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                  ContentType                = HTTPContentType.JSON_UTF8,
+                                                  ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    new JProperty("description",  "The request did not succeed within the given period of time!")
                                                                                ).ToUTF8Bytes()
@@ -1268,7 +1268,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                   AccessControlAllowOrigin   = "*",
                                                   AccessControlAllowMethods  = new[] { "POST" },
                                                   AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                  ContentType                = HTTPContentType.JSON_UTF8,
+                                                  ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                   Content                    = JSONObject.Create(
                                                                                    response.Session != null
                                                                                        ? new JProperty("SessionId",  response.Session.Id.ToString())
@@ -1300,7 +1300,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
             AddMethodCallback(HTTPHostname,
                                          REMOTESTOP,
                                          URLPrefix + "/EVSEs/{EVSEId}",
-                                         HTTPContentType.JSON_UTF8,
+                                         HTTPContentType.Application.JSON_UTF8,
                                          HTTPDelegate: async Request => {
 
                                              SendRemoteStopEVSE(Request);
@@ -1426,7 +1426,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                                  AccessControlAllowOrigin   = "*",
                                                                  AccessControlAllowMethods  = new[] { "POST" },
                                                                  AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                                 ContentType                = HTTPContentType.JSON_UTF8,
+                                                                 ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                                  Content                    = new JObject(
                                                                                                   new JProperty("KeepAlive", (Int32) response.ReservationHandling.KeepAliveTime.TotalSeconds)
                                                                                               ).ToUTF8Bytes()
@@ -1445,7 +1445,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = new JObject(
                                                                                               new JProperty("description", "Unauthorized remote start or invalid credentials!")
                                                                                           ).ToUTF8Bytes()
@@ -1464,7 +1464,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = new JObject(
                                                                                               new JProperty("description", "Invalid SessionId!")
                                                                                           ).ToUTF8Bytes()
@@ -1483,7 +1483,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = new JObject(
                                                                                               new JProperty("description", "EVSE is out of service!")
                                                                                           ).ToUTF8Bytes()
@@ -1502,7 +1502,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = new JObject(
                                                                                               new JProperty("description", "EVSE is offline!")
                                                                                           ).ToUTF8Bytes()
@@ -1521,7 +1521,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowOrigin   = "*",
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
-                                                             ContentType                = HTTPContentType.JSON_UTF8,
+                                                             ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               response.SessionId != null
                                                                                                   ? new JProperty("SessionId",  response.SessionId.ToString())

@@ -62,7 +62,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                     HTTPStatusCode  = HTTPStatusCode.BadRequest,
                     Server          = DefaultServerName,
                     Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.JSON_UTF8,
+                    ContentType     = HTTPContentType.Application.JSON_UTF8,
                     Content         = @"{ ""description"": ""Invalid charging pool identification!"" }".ToUTF8Bytes()
                 };
 
@@ -108,7 +108,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                     HTTPStatusCode  = HTTPStatusCode.BadRequest,
                     Server          = DefaultServerName,
                     Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.JSON_UTF8,
+                    ContentType     = HTTPContentType.Application.JSON_UTF8,
                     Content         = @"{ ""description"": ""Invalid charging station identification!"" }".ToUTF8Bytes()
                 };
 
@@ -153,7 +153,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                     HTTPStatusCode  = HTTPStatusCode.BadRequest,
                     Server          = DefaultServerName,
                     Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.JSON_UTF8,
+                    ContentType     = HTTPContentType.Application.JSON_UTF8,
                     Content         = @"{ ""description"": ""Invalid EVSE identification!"" }".ToUTF8Bytes()
                 };
 
@@ -200,7 +200,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                     HTTPStatusCode  = HTTPStatusCode.BadRequest,
                     Server          = DefaultServerName,
                     Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.JSON_UTF8,
+                    ContentType     = HTTPContentType.Application.JSON_UTF8,
                     Content         = @"{ ""description"": ""Invalid charging reservation identification!"" }".ToUTF8Bytes()
                 };
 
@@ -239,7 +239,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                     HTTPStatusCode  = HTTPStatusCode.NotFound,
                     Server          = DefaultServerName,
                     Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.JSON_UTF8,
+                    ContentType     = HTTPContentType.Application.JSON_UTF8,
                     Content         = @"{ ""description"": ""Unknown charging reservation identification!"" }".ToUTF8Bytes()
                 };
 
@@ -287,7 +287,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                     HTTPStatusCode  = HTTPStatusCode.BadRequest,
                     Server          = DefaultServerName,
                     Date            = DateTime.Now,
-                    ContentType     = HTTPContentType.JSON_UTF8,
+                    ContentType     = HTTPContentType.Application.JSON_UTF8,
                     Content         = @"{ ""description"": ""Invalid charging session identification!"" }".ToUTF8Bytes()
                 };
 
