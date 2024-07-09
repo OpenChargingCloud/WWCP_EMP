@@ -1124,20 +1124,23 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                   #endregion
 
 
-                                  var response = await EMSP.RemoteStart(ChargingLocation.FromEVSEId(evseId),
-                                                                        ChargingProductId.HasValue
-                                                                            ? new ChargingProduct(ChargingProductId.Value)
-                                                                            : null,
-                                                                        ReservationId,
-                                                                        SessionId,
-                                                                        null,
-                                                                        RemoteAuthentication.FromRemoteIdentification(eMAId),
-                                                                        null, // AuthenticationPath,
+                                  var response = await EMSP.RemoteStart(
+                                                           ChargingLocation.FromEVSEId(evseId),
+                                                           ChargingProductId.HasValue
+                                                               ? new ChargingProduct(ChargingProductId.Value)
+                                                               : null,
+                                                           ReservationId,
+                                                           SessionId,
+                                                           null,
+                                                           RemoteAuthentication.FromRemoteIdentification(eMAId),
+                                                           null, // AdditionalSessionInfos,
+                                                           null, // AuthenticationPath,
 
-                                                                        Request.Timestamp,
-                                                                        Request.EventTrackingId,
-                                                                        Request.Timeout,
-                                                                        Request.CancellationToken);
+                                                           Request.Timestamp,
+                                                           Request.EventTrackingId,
+                                                           Request.Timeout,
+                                                           Request.CancellationToken
+                                                       );
 
 
                                   switch (response.Result)

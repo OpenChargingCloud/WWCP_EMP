@@ -17,13 +17,10 @@
 
 #region Usings
 
-using System;
-using System.Linq;
-using System.Threading;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
+
+using Newtonsoft.Json.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
@@ -2888,17 +2885,18 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         public async Task<RemoteStartResult>
 
             RemoteStart(ChargingLocation         ChargingLocation,
-                        ChargingProduct?         ChargingProduct        = null,
-                        ChargingReservation_Id?  ReservationId          = null,
-                        ChargingSession_Id?      SessionId              = null,
-                        EMobilityProvider_Id?    ProviderId             = null,
-                        RemoteAuthentication?    RemoteAuthentication   = null,
-                        Auth_Path?               AuthenticationPath     = null,
+                        ChargingProduct?         ChargingProduct          = null,
+                        ChargingReservation_Id?  ReservationId            = null,
+                        ChargingSession_Id?      SessionId                = null,
+                        EMobilityProvider_Id?    ProviderId               = null,
+                        RemoteAuthentication?    RemoteAuthentication     = null,
+                        JObject?                 AdditionalSessionInfos   = null,
+                        Auth_Path?               AuthenticationPath       = null,
 
-                        DateTime?                Timestamp              = null,
-                        EventTracking_Id?        EventTrackingId        = null,
-                        TimeSpan?                RequestTimeout         = null,
-                        CancellationToken        CancellationToken      = default)
+                        DateTime?                Timestamp                = null,
+                        EventTracking_Id?        EventTrackingId          = null,
+                        TimeSpan?                RequestTimeout           = null,
+                        CancellationToken        CancellationToken        = default)
 
         {
 
@@ -2940,19 +2938,21 @@ namespace cloud.charging.open.protocols.WWCP.EMP
             #endregion
 
 
-            var response = await RoamingNetwork.
-                                     RemoteStart(ChargingLocation,
-                                                 ChargingProduct,
-                                                 ReservationId,
-                                                 SessionId,
-                                                 Id,
-                                                 RemoteAuthentication,
-                                                 AuthenticationPath,
+            var response = await RoamingNetwork.RemoteStart(
+                                     ChargingLocation,
+                                     ChargingProduct,
+                                     ReservationId,
+                                     SessionId,
+                                     Id,
+                                     RemoteAuthentication,
+                                     AdditionalSessionInfos,
+                                     AuthenticationPath,
 
-                                                 Timestamp,
-                                                 EventTrackingId,
-                                                 RequestTimeout,
-                                                 CancellationToken);
+                                     Timestamp,
+                                     EventTrackingId,
+                                     RequestTimeout,
+                                     CancellationToken
+                                 );
 
 
             #region Send OnRemoteStartResponse event
