@@ -2309,34 +2309,25 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                ChargingSession_Id?          CPOPartnerSessionId,
                                                ChargingStationOperator_Id?  OperatorId,
 
-                                               DateTime?                    Timestamp,
+                                               DateTime?                    RequestTimestamp,
                                                EventTracking_Id?            EventTrackingId,
                                                TimeSpan?                    RequestTimeout,
                                                CancellationToken            CancellationToken)
 
         {
 
-            #region Initial checks
-
-            if (LocalAuthentication  == null)
-                throw new ArgumentNullException(nameof(LocalAuthentication),  "The given authentication token must not be null!");
-
-            AuthStartResult result;
-
-            #endregion
-
             #region Send OnAuthorizeStartRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var startTime = Timestamp.Now;
 
             try
             {
 
-                if (OnAuthorizeStartRequest != null)
+                if (OnAuthorizeStartRequest is not null)
                     await Task.WhenAll(OnAuthorizeStartRequest.GetInvocationList().
                                        Cast<OnAuthorizeStartRequestDelegate>().
-                                       Select(e => e(StartTime,
-                                                     Timestamp.Value,
+                                       Select(e => e(startTime,
+                                                     RequestTimestamp.Value,
                                                      this,
                                                      Id.ToString(),
                                                      EventTrackingId,
@@ -2349,7 +2340,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                      ChargingProduct,
                                                      SessionId,
                                                      CPOPartnerSessionId,
-                                                     new ISendAuthorizeStartStop[0],
+                                                     [],
                                                      RequestTimeout ?? RequestTimeout.Value))).
                                        ConfigureAwait(false);
 
@@ -2361,6 +2352,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #endregion
 
+            AuthStartResult result;
 
             if (AuthorizationDatabase.TryGetValue(LocalAuthentication, out var authenticationResult))
             {
@@ -2371,7 +2363,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                 {
 
                     if (!SessionId.HasValue)
-                        SessionId = ChargingSession_Id.NewRandom(ChargingLocation?.ChargingStationOperatorId ?? ChargingStationOperator_Id.Parse("XX-XXX"));
+                        SessionId = ChargingSession_Id.NewRandom(ChargingLocation?.ChargingStationOperatorId ?? ChargingStationOperator_Id.Parse("DE*XXX"));
 
                     SessionDatabase.TryAdd(SessionId.Value, new SessionInfo(LocalAuthentication));
 
@@ -2422,7 +2414,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #region Send OnAuthorizeEVSEStartResponse event
 
-            var EndTime = DateTime.UtcNow;
+            var endTime = Timestamp.Now;
 
             try
             {
@@ -2430,8 +2422,8 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                 if (OnAuthorizeStartResponse != null)
                     await Task.WhenAll(OnAuthorizeStartResponse.GetInvocationList().
                                        Cast<OnAuthorizeStartResponseDelegate>().
-                                       Select(e => e(EndTime,
-                                                     Timestamp.Value,
+                                       Select(e => e(endTime,
+                                                     RequestTimestamp.Value,
                                                      this,
                                                      Id.ToString(),
                                                      EventTrackingId,
@@ -2444,10 +2436,10 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                      ChargingProduct,
                                                      SessionId,
                                                      CPOPartnerSessionId,
-                                                     new ISendAuthorizeStartStop[0],
+                                                     [],
                                                      RequestTimeout ?? RequestTimeout.Value,
                                                      result,
-                                                     EndTime - StartTime))).
+                                                     endTime - startTime))).
                                        ConfigureAwait(false);
 
             }
@@ -2491,22 +2483,12 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                               ChargingSession_Id?          CPOPartnerSessionId,
                                               ChargingStationOperator_Id?  OperatorId,
 
-                                              DateTime?                    Timestamp,
+                                              DateTime?                    RequestTimestamp,
                                               EventTracking_Id?            EventTrackingId,
                                               TimeSpan?                    RequestTimeout,
                                               CancellationToken            CancellationToken)
 
         {
-
-            #region Initial checks
-
-            if (SessionId           == null)
-                throw new ArgumentNullException(nameof(SessionId),           "The given charging session identification must not be null!");
-
-            if (LocalAuthentication  == null)
-                throw new ArgumentNullException(nameof(LocalAuthentication),  "The given authentication token must not be null!");
-
-            #endregion
 
             #region Check session identification
 
@@ -2599,18 +2581,11 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             IReceiveChargeDetailRecords.ReceiveChargeDetailRecords(IEnumerable<ChargeDetailRecord>  ChargeDetailRecords,
 
-                                                                   DateTime?                        Timestamp,
+                                                                   DateTime?                        RequestTimestamp,
                                                                    EventTracking_Id?                EventTrackingId,
                                                                    TimeSpan?                        RequestTimeout,
                                                                    CancellationToken                CancellationToken)
         {
-
-            #region Initial checks
-
-            if (ChargeDetailRecords == null)
-                throw new ArgumentNullException(nameof(ChargeDetailRecords),  "The given charge detail records must not be null!");
-
-            #endregion
 
             SessionInfo _SessionInfo = null;
 
@@ -2659,7 +2634,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             //};
 
-            return Task.FromResult(SendCDRsResult.OutOfService(DateTime.UtcNow,
+            return Task.FromResult(SendCDRsResult.OutOfService(Timestamp.Now,
                                                                Id,
                                                                this,
                                                                ChargeDetailRecords));
@@ -2711,7 +2686,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                     IEnumerable<EMobilityAccount_Id>?  eMAIds                 = null,
                     IEnumerable<UInt32>?               PINs                   = null,
 
-                    DateTime?                          Timestamp              = null,
+                    DateTime?                          RequestTimestamp       = null,
                     EventTracking_Id?                  EventTrackingId        = null,
                     TimeSpan?                          RequestTimeout         = null,
                     CancellationToken                  CancellationToken      = default)
@@ -2720,8 +2695,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #region Initial checks
 
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
+            EventTrackingId ??= EventTracking_Id.New;
 
             #endregion
 
@@ -2732,7 +2706,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
             try
             {
 
-                //OnReserveRequest?.Invoke(DateTime.UtcNow,
+                //OnReserveRequest?.Invoke(Timestamp.Now,
                 //                         Timestamp.Value,
                 //                         this,
                 //                         EventTrackingId,
@@ -2773,7 +2747,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                              eMAIds,
                                              PINs,
 
-                                             Timestamp,
+                                             RequestTimestamp,
                                              EventTrackingId,
                                              RequestTimeout,
                                              CancellationToken);
@@ -2786,7 +2760,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
             try
             {
 
-                //OnReserveResponse?.Invoke(DateTime.UtcNow,
+                //OnReserveResponse?.Invoke(Timestamp.Now,
                 //                          Timestamp.Value,
                 //                          this,
                 //                          EventTrackingId,
@@ -2855,7 +2829,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             //var OnCancelReservationResponseLocal = OnCancelReservationResponse;
             //if (OnCancelReservationResponseLocal != null)
-            //    OnCancelReservationResponseLocal(DateTime.UtcNow,
+            //    OnCancelReservationResponseLocal(Timestamp.Now,
             //                                this,
             //                                EventTracking_Id.New,
             //                                ReservationId,
@@ -2893,7 +2867,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                         JObject?                 AdditionalSessionInfos   = null,
                         Auth_Path?               AuthenticationPath       = null,
 
-                        DateTime?                Timestamp                = null,
+                        DateTime?                RequestTimestamp         = null,
                         EventTracking_Id?        EventTrackingId          = null,
                         TimeSpan?                RequestTimeout           = null,
                         CancellationToken        CancellationToken        = default)
@@ -2902,20 +2876,19 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #region Initial checks
 
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
+            EventTrackingId ??= EventTracking_Id.New;
 
             #endregion
 
             #region Send OnRemoteStartRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
 
                 OnRemoteStartRequest?.Invoke(StartTime,
-                                             Timestamp.Value,
+                                             RequestTimestamp.Value,
                                              this,
                                              EventTrackingId,
                                              RoamingNetwork.Id,
@@ -2948,7 +2921,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                      AdditionalSessionInfos,
                                      AuthenticationPath,
 
-                                     Timestamp,
+                                     RequestTimestamp,
                                      EventTrackingId,
                                      RequestTimeout,
                                      CancellationToken
@@ -2957,13 +2930,13 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #region Send OnRemoteStartResponse event
 
-            var EndTime = DateTime.UtcNow;
+            var EndTime = Timestamp.Now;
 
             try
             {
 
                 OnRemoteStartResponse?.Invoke(EndTime,
-                                              Timestamp.Value,
+                                              RequestTimestamp.Value,
                                               this,
                                               EventTrackingId,
                                               RoamingNetwork.Id,
@@ -3014,7 +2987,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                        RemoteAuthentication?  RemoteAuthentication   = null,
                        Auth_Path?             AuthenticationPath     = null,
 
-                       DateTime?              Timestamp              = null,
+                       DateTime?              RequestTimestamp       = null,
                        EventTracking_Id?      EventTrackingId        = null,
                        TimeSpan?              RequestTimeout         = null,
                        CancellationToken      CancellationToken      = default)
@@ -3023,20 +2996,19 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #region Initial checks
 
-            if (EventTrackingId == null)
-                EventTrackingId = EventTracking_Id.New;
+            EventTrackingId ??= EventTracking_Id.New;
 
             #endregion
 
             #region Send OnRemoteStopRequest event
 
-            var StartTime = DateTime.UtcNow;
+            var StartTime = Timestamp.Now;
 
             try
             {
 
                 OnRemoteStopRequest?.Invoke(StartTime,
-                                            Timestamp.Value,
+                                            RequestTimestamp.Value,
                                             this,
                                             EventTrackingId,
                                             RoamingNetwork.Id,
@@ -3063,7 +3035,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                            RemoteAuthentication,
                                                            AuthenticationPath,
 
-                                                           Timestamp,
+                                                           RequestTimestamp,
                                                            EventTrackingId,
                                                            RequestTimeout,
                                                            CancellationToken);
@@ -3071,13 +3043,13 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #region Send OnRemoteStopResponse event
 
-            var EndTime = DateTime.UtcNow;
+            var EndTime = Timestamp.Now;
 
             try
             {
 
                 OnRemoteStopResponse?.Invoke(EndTime,
-                                             Timestamp.Value,
+                                             RequestTimestamp.Value,
                                              this,
                                              EventTrackingId,
                                              RoamingNetwork.Id,
