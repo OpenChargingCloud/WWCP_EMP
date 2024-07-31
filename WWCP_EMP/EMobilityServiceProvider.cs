@@ -19,6 +19,7 @@
 
 using System.Diagnostics;
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 
 using Newtonsoft.Json.Linq;
 
@@ -2316,39 +2317,38 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         {
 
+            #region Initial checks
+
+            RequestTimestamp ??= Timestamp.Now;
+            EventTrackingId  ??= EventTracking_Id.New;
+
+            #endregion
+
             #region Send OnAuthorizeStartRequest event
 
             var startTime = Timestamp.Now;
 
-            try
-            {
-
-                if (OnAuthorizeStartRequest is not null)
-                    await Task.WhenAll(OnAuthorizeStartRequest.GetInvocationList().
-                                       Cast<OnAuthorizeStartRequestDelegate>().
-                                       Select(e => e(startTime,
-                                                     RequestTimestamp.Value,
-                                                     this,
-                                                     Id.ToString(),
-                                                     EventTrackingId,
-                                                     RoamingNetwork.Id,
-                                                     null,
-                                                     null,
-                                                     OperatorId,
-                                                     LocalAuthentication,
-                                                     ChargingLocation,
-                                                     ChargingProduct,
-                                                     SessionId,
-                                                     CPOPartnerSessionId,
-                                                     [],
-                                                     RequestTimeout ?? RequestTimeout.Value))).
-                                       ConfigureAwait(false);
-
-            }
-            catch (Exception e)
-            {
-                DebugX.LogException(e, nameof(EMobilityServiceProvider) + "." + nameof(OnAuthorizeStartRequest));
-            }
+            await LogEvent(
+                      OnAuthorizeStartRequest,
+                      loggingDelegate => loggingDelegate.Invoke(
+                          startTime,
+                          RequestTimestamp.Value,
+                          this,
+                          Id.ToString(),
+                          EventTrackingId,
+                          RoamingNetwork.Id,
+                          null,
+                          null,
+                          OperatorId,
+                          LocalAuthentication,
+                          ChargingLocation,
+                          ChargingProduct,
+                          SessionId,
+                          CPOPartnerSessionId,
+                          [],
+                          RequestTimeout
+                      )
+                  );
 
             #endregion
 
@@ -2416,37 +2416,29 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             var endTime = Timestamp.Now;
 
-            try
-            {
-
-                if (OnAuthorizeStartResponse != null)
-                    await Task.WhenAll(OnAuthorizeStartResponse.GetInvocationList().
-                                       Cast<OnAuthorizeStartResponseDelegate>().
-                                       Select(e => e(endTime,
-                                                     RequestTimestamp.Value,
-                                                     this,
-                                                     Id.ToString(),
-                                                     EventTrackingId,
-                                                     RoamingNetwork.Id,
-                                                     null,
-                                                     null,
-                                                     OperatorId,
-                                                     LocalAuthentication,
-                                                     ChargingLocation,
-                                                     ChargingProduct,
-                                                     SessionId,
-                                                     CPOPartnerSessionId,
-                                                     [],
-                                                     RequestTimeout ?? RequestTimeout.Value,
-                                                     result,
-                                                     endTime - startTime))).
-                                       ConfigureAwait(false);
-
-            }
-            catch (Exception e)
-            {
-                DebugX.LogException(e, nameof(EMobilityServiceProvider) + "." + nameof(OnAuthorizeStartResponse));
-            }
+            await LogEvent(
+                      OnAuthorizeStartResponse,
+                      loggingDelegate => loggingDelegate.Invoke(
+                          endTime,
+                          RequestTimestamp.Value,
+                          this,
+                          Id.ToString(),
+                          EventTrackingId,
+                          RoamingNetwork.Id,
+                          null,
+                          null,
+                          OperatorId,
+                          LocalAuthentication,
+                          ChargingLocation,
+                          ChargingProduct,
+                          SessionId,
+                          CPOPartnerSessionId,
+                          [],
+                          RequestTimeout,
+                          result,
+                          endTime - startTime
+                      )
+                  );
 
             #endregion
 
@@ -2848,22 +2840,21 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// Start a charging session at the given EVSE.
         /// </summary>
         /// <param name="ChargingProduct">The choosen charging product.</param>
+        /// <param name="RemoteAuthentication">The unique identification of the e-mobility account.</param>
         /// <param name="ReservationId">The unique identification for a charging reservation.</param>
         /// <param name="SessionId">The unique identification for this charging session.</param>
-        /// <param name="RemoteAuthentication">The unique identification of the e-mobility account.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public async Task<RemoteStartResult>
 
             RemoteStart(ChargingLocation         ChargingLocation,
+                        RemoteAuthentication     RemoteAuthentication,
                         ChargingProduct?         ChargingProduct          = null,
                         ChargingReservation_Id?  ReservationId            = null,
                         ChargingSession_Id?      SessionId                = null,
-                        EMobilityProvider_Id?    ProviderId               = null,
-                        RemoteAuthentication?    RemoteAuthentication     = null,
                         JObject?                 AdditionalSessionInfos   = null,
                         Auth_Path?               AuthenticationPath       = null,
 
@@ -2876,37 +2867,34 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #region Initial checks
 
-            EventTrackingId ??= EventTracking_Id.New;
+            RequestTimestamp ??= Timestamp.Now;
+            EventTrackingId  ??= EventTracking_Id.New;
 
             #endregion
 
             #region Send OnRemoteStartRequest event
 
-            var StartTime = Timestamp.Now;
+            var startTime = Timestamp.Now;
 
-            try
-            {
-
-                OnRemoteStartRequest?.Invoke(StartTime,
-                                             RequestTimestamp.Value,
-                                             this,
-                                             EventTrackingId,
-                                             RoamingNetwork.Id,
-                                             ChargingLocation,
-                                             ChargingProduct,
-                                             ReservationId,
-                                             SessionId,
-                                             null,
-                                             null,
-                                             Id,
-                                             RemoteAuthentication,
-                                             RequestTimeout);
-
-            }
-            catch (Exception e)
-            {
-                DebugX.LogException(e, nameof(EMobilityServiceProvider) + "." + nameof(OnRemoteStartRequest));
-            }
+            await LogEvent(
+                      OnRemoteStartRequest,
+                      loggingDelegate => loggingDelegate.Invoke(
+                          startTime,
+                          RequestTimestamp.Value,
+                          this,
+                          EventTrackingId,
+                          RoamingNetwork.Id,
+                          ChargingLocation,
+                          RemoteAuthentication,
+                          SessionId,
+                          ReservationId,
+                          ChargingProduct,
+                          null,
+                          null,
+                          Id,
+                          RequestTimeout
+                      )
+                  );
 
             #endregion
 
@@ -2930,33 +2918,29 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #region Send OnRemoteStartResponse event
 
-            var EndTime = Timestamp.Now;
+            var endTime = Timestamp.Now;
 
-            try
-            {
-
-                OnRemoteStartResponse?.Invoke(EndTime,
-                                              RequestTimestamp.Value,
-                                              this,
-                                              EventTrackingId,
-                                              RoamingNetwork.Id,
-                                              ChargingLocation,
-                                              ChargingProduct,
-                                              ReservationId,
-                                              SessionId,
-                                              null,
-                                              null,
-                                              Id,
-                                              RemoteAuthentication,
-                                              RequestTimeout,
-                                              response,
-                                              EndTime - StartTime);
-
-            }
-            catch (Exception e)
-            {
-                DebugX.LogException(e, nameof(EMobilityServiceProvider) + "." + nameof(OnRemoteStartResponse));
-            }
+            await LogEvent(
+                      OnRemoteStartResponse,
+                      loggingDelegate => loggingDelegate.Invoke(
+                          endTime,
+                          RequestTimestamp.Value,
+                          this,
+                          EventTrackingId,
+                          RoamingNetwork.Id,
+                          ChargingLocation,
+                          RemoteAuthentication,
+                          SessionId,
+                          ReservationId,
+                          ChargingProduct,
+                          null,
+                          null,
+                          Id,
+                          RequestTimeout,
+                          response,
+                          endTime - startTime
+                      )
+                  );
 
             #endregion
 
@@ -3088,6 +3072,66 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         }
 
         #endregion
+
+
+
+        #region (private) LogEvent(Logger, LogHandler, ...)
+
+        private async Task LogEvent<TDelegate>(TDelegate?                                         Logger,
+                                               Func<TDelegate, Task>                              LogHandler,
+                                               [CallerArgumentExpression(nameof(Logger))] String  EventName     = "",
+                                               [CallerMemberName()]                       String  OCPPCommand   = "")
+
+            where TDelegate : Delegate
+
+        {
+            if (Logger is not null)
+            {
+                try
+                {
+
+                    await Task.WhenAll(
+                              Logger.GetInvocationList().
+                                     OfType<TDelegate>().
+                                     Select(LogHandler)
+                          );
+
+                }
+                catch (Exception e)
+                {
+                    await HandleErrors(nameof(EMobilityServiceProvider), $"{OCPPCommand}.{EventName}", e);
+                }
+            }
+        }
+
+        #endregion
+
+        #region (virtual) HandleErrors(Module, Caller, ErrorResponse)
+
+        public virtual Task HandleErrors(String  Module,
+                                         String  Caller,
+                                         String  ErrorResponse)
+        {
+
+            return Task.CompletedTask;
+
+        }
+
+        #endregion
+
+        #region (virtual) HandleErrors(Module, Caller, ExceptionOccured)
+
+        public virtual Task HandleErrors(String     Module,
+                                         String     Caller,
+                                         Exception  ExceptionOccured)
+        {
+
+            return Task.CompletedTask;
+
+        }
+
+        #endregion
+
 
 
     }

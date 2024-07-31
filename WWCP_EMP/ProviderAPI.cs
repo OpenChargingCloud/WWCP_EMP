@@ -1126,13 +1126,12 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
                                   var response = await EMSP.RemoteStart(
                                                            ChargingLocation.FromEVSEId(evseId),
+                                                           RemoteAuthentication.FromRemoteIdentification(eMAId),
                                                            ChargingProductId.HasValue
                                                                ? new ChargingProduct(ChargingProductId.Value)
                                                                : null,
                                                            ReservationId,
                                                            SessionId,
-                                                           null,
-                                                           RemoteAuthentication.FromRemoteIdentification(eMAId),
                                                            null, // AdditionalSessionInfos,
                                                            null, // AuthenticationPath,
 
