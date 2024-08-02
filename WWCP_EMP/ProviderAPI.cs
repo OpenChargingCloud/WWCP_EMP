@@ -1053,8 +1053,8 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                   EMobilityAccount_Id      eMAId;
 
                                   if (!Request.TryParseJSONObjectRequestBody(out var JSON,
-                                                                          out httpResponse,
-                                                                          AllowEmptyHTTPBody: false))
+                                                                             out httpResponse,
+                                                                             AllowEmptyHTTPBody: false))
 
                                   {
 
@@ -1391,7 +1391,6 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                              var response = await EMSP.RemoteStop(//EVSEId,
                                                                                   SessionId,
                                                                                   ReservationHandling.Close, //ReservationHandling.KeepAlive(TimeSpan.FromMinutes(1)), // ToDo: Parse this property!
-                                                                                  null,
                                                                                   RemoteAuthentication.FromRemoteIdentification(eMAId),
                                                                                   null, // AuthenticationPath,
 

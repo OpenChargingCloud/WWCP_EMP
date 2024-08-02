@@ -34,7 +34,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
     /// <summary>
     /// An e-mobility service provider.
     /// </summary>
-    public class EMobilityServiceProvider : //IEMobilityProviderUserInterface,
+    public class EMobilityServiceProvider : IRemoteEMobilityProviderUI,
                                             IRemoteEMobilityProvider
     {
 
@@ -60,6 +60,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         public Boolean DisableAuthentication           { get; set; }
         public Boolean DisableSendChargeDetailRecords  { get; set; }
+
+
+        public TimeSpan? RequestTimeout                { get; set; }
 
 
         #region AllTokens
@@ -2834,15 +2837,16 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         #endregion
 
 
-        #region RemoteStart(ChargingLocation, ChargingProduct = null, ReservationId = null, SessionId = null, RemoteAuthentication = null, ...)
+        #region RemoteStart(ChargingLocation, RemoteAuthentication, ChargingProduct = null, ReservationId = null, SessionId = null, AdditionalSessionInfos = null, AuthenticationPath = null, ...)
 
         /// <summary>
-        /// Start a charging session at the given EVSE.
+        /// Start a charging session at the given charging location.
         /// </summary>
+        /// <param name="ChargingLocation">The charging location.</param>
         /// <param name="ChargingProduct">The choosen charging product.</param>
-        /// <param name="RemoteAuthentication">The unique identification of the e-mobility account.</param>
-        /// <param name="ReservationId">The unique identification for a charging reservation.</param>
+        /// <param name="ReservationId">Use the given optinal unique charging reservation identification for charging.</param>
         /// <param name="SessionId">The unique identification for this charging session.</param>
+        /// <param name="RemoteAuthentication">The unique identification of the e-mobility account.</param>
         /// 
         /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
@@ -2869,6 +2873,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             RequestTimestamp ??= Timestamp.Now;
             EventTrackingId  ??= EventTracking_Id.New;
+            RequestTimeout   ??= this.RequestTimeout;
 
             #endregion
 
@@ -2950,24 +2955,23 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         #endregion
 
-        #region RemoteStop (SessionId, ReservationHandling, RemoteAuthentication = null, ...)
+        #region RemoteStop (SessionId, ReservationHandling, RemoteAuthentication = null, AuthenticationPath = null, ...)
 
         /// <summary>
-        /// Stop the given charging session at the given EVSE.
+        /// Stop the given charging session.
         /// </summary>
         /// <param name="SessionId">The unique identification for this charging session.</param>
         /// <param name="ReservationHandling">Whether to remove the reservation after session end, or to keep it open for some more time.</param>
         /// <param name="RemoteAuthentication">The unique identification of the e-mobility account.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
+        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
-        /// <param name="CancellationToken">An optional token to cancel this request.</param>
         public async Task<RemoteStopResult>
 
             RemoteStop(ChargingSession_Id     SessionId,
                        ReservationHandling?   ReservationHandling    = null,
-                       EMobilityProvider_Id?  ProviderId             = null,
                        RemoteAuthentication?  RemoteAuthentication   = null,
                        Auth_Path?             AuthenticationPath     = null,
 
@@ -2980,78 +2984,74 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #region Initial checks
 
-            EventTrackingId ??= EventTracking_Id.New;
+            RequestTimestamp ??= Timestamp.Now;
+            EventTrackingId  ??= EventTracking_Id.New;
+            RequestTimeout   ??= this.RequestTimeout;
 
             #endregion
 
             #region Send OnRemoteStopRequest event
 
-            var StartTime = Timestamp.Now;
+            var startTime = Timestamp.Now;
 
-            try
-            {
-
-                OnRemoteStopRequest?.Invoke(StartTime,
-                                            RequestTimestamp.Value,
-                                            this,
-                                            EventTrackingId,
-                                            RoamingNetwork.Id,
-                                            SessionId,
-                                            ReservationHandling,
-                                            null,
-                                            null,
-                                            Id,
-                                            RemoteAuthentication,
-                                            RequestTimeout);
-
-            }
-            catch (Exception e)
-            {
-                DebugX.LogException(e, nameof(EMobilityServiceProvider) + "." + nameof(OnRemoteStopRequest));
-            }
+            await LogEvent(
+                      OnRemoteStopRequest,
+                      loggingDelegate => loggingDelegate.Invoke(
+                          startTime,
+                          RequestTimestamp.Value,
+                          this,
+                          EventTrackingId,
+                          RoamingNetwork.Id,
+                          SessionId,
+                          ReservationHandling,
+                          null,
+                          null,
+                          Id,
+                          RemoteAuthentication,
+                          RequestTimeout
+                      )
+                  );
 
             #endregion
 
 
-            var response = await RoamingNetwork.RemoteStop(SessionId,
-                                                           ReservationHandling,
-                                                           Id,
-                                                           RemoteAuthentication,
-                                                           AuthenticationPath,
+            var response = await RoamingNetwork.RemoteStop(
+                                     SessionId,
+                                     ReservationHandling,
+                                     Id,
+                                     RemoteAuthentication,
+                                     AuthenticationPath,
 
-                                                           RequestTimestamp,
-                                                           EventTrackingId,
-                                                           RequestTimeout,
-                                                           CancellationToken);
+                                     RequestTimestamp,
+                                     EventTrackingId,
+                                     RequestTimeout,
+                                     CancellationToken
+                                 );
 
 
             #region Send OnRemoteStopResponse event
 
-            var EndTime = Timestamp.Now;
+            var endTime = Timestamp.Now;
 
-            try
-            {
-
-                OnRemoteStopResponse?.Invoke(EndTime,
-                                             RequestTimestamp.Value,
-                                             this,
-                                             EventTrackingId,
-                                             RoamingNetwork.Id,
-                                             SessionId,
-                                             ReservationHandling,
-                                             null,
-                                             null,
-                                             Id,
-                                             RemoteAuthentication,
-                                             RequestTimeout,
-                                             response,
-                                             EndTime - StartTime);
-
-            }
-            catch (Exception e)
-            {
-                DebugX.LogException(e, nameof(EMobilityServiceProvider) + "." + nameof(OnRemoteStopResponse));
-            }
+            await LogEvent(
+                      OnRemoteStopResponse,
+                      loggingDelegate => loggingDelegate.Invoke(
+                          endTime,
+                          RequestTimestamp.Value,
+                          this,
+                          EventTrackingId,
+                          RoamingNetwork.Id,
+                          SessionId,
+                          ReservationHandling,
+                          null,
+                          null,
+                          Id,
+                          RemoteAuthentication,
+                          RequestTimeout,
+                          response,
+                          endTime - startTime
+                      )
+                  );
 
             #endregion
 
