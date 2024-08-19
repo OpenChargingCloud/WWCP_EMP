@@ -2325,6 +2325,8 @@ namespace cloud.charging.open.protocols.WWCP.EMP
             RequestTimestamp ??= Timestamp.Now;
             EventTrackingId  ??= EventTracking_Id.New;
 
+            AuthStartResult? result = null;
+
             #endregion
 
             #region Send OnAuthorizeStartRequest event
@@ -2355,7 +2357,6 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             #endregion
 
-            AuthStartResult result;
 
             if (AuthorizationDatabase.TryGetValue(LocalAuthentication, out var authenticationResult))
             {
@@ -2415,7 +2416,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
             #endregion
 
 
-            #region Send OnAuthorizeEVSEStartResponse event
+            #region Send OnAuthorizeStartResponse event
 
             var endTime = Timestamp.Now;
 
@@ -2485,17 +2486,56 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         {
 
-            #region Check session identification
+            #region Initial checks
 
-            if (!SessionDatabase.TryGetValue(SessionId, out var sessionInfo))
-                return AuthStopResult.InvalidSessionId(Id,
-                                                       this,
-                                                       null,
-                                                       SessionId);
+            RequestTimestamp ??= Timestamp.Now;
+            EventTrackingId  ??= EventTracking_Id.New;
+
+            AuthStopResult? result = null;
 
             #endregion
 
-            if (AuthorizationDatabase.TryGetValue(LocalAuthentication, out var authenticationResult))
+            #region Send OnAuthorizeStopRequest event
+
+            var startTime = Timestamp.Now;
+
+            await LogEvent(
+                      OnAuthorizeStopRequest,
+                      loggingDelegate => loggingDelegate.Invoke(
+                          startTime,
+                          RequestTimestamp.Value,
+                          this,
+                          Id.ToString(),
+                          EventTrackingId,
+                          RoamingNetwork.Id,
+                          null,
+                          null,
+                          OperatorId,
+                          ChargingLocation,
+                          SessionId,
+                          CPOPartnerSessionId,
+                          LocalAuthentication,
+                          RequestTimeout
+                      )
+                  );
+
+            #endregion
+
+
+            #region Check session identification
+
+            if (!SessionDatabase.TryGetValue(SessionId, out var sessionInfo))
+                result = AuthStopResult.InvalidSessionId(
+                             Id,
+                             this,
+                             null,
+                             SessionId
+                         );
+
+            #endregion
+
+
+            else if (AuthorizationDatabase.TryGetValue(LocalAuthentication, out var authenticationResult))
             {
 
                 #region Token is authorized
@@ -2505,18 +2545,21 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
                     // Authorized
                     if (sessionInfo.ListOfAuthStopTokens.Contains(LocalAuthentication))
-                        return AuthStopResult.Authorized(Id,
-                                                         this,
-                                                         SessionId:   SessionId,
-                                                         ProviderId:  Id);
+                        result = AuthStopResult.Authorized(Id,
+                                     this,
+                                     SessionId:   SessionId,
+                                     ProviderId:  Id
+                                 );
 
                     // Invalid Token for SessionId!
                     else
-                        return AuthStopResult.NotAuthorized(Id,
-                                                                this,
-                                                                SessionId:    SessionId,
-                                                                ProviderId:   Id,
-                                                                Description:  I18NString.Create(Languages.en, "Invalid token for given session identification!"));
+                        result = AuthStopResult.NotAuthorized(
+                                     Id,
+                                     this,
+                                     SessionId:    SessionId,
+                                     ProviderId:   Id,
+                                     Description:  I18NString.Create(Languages.en, "Invalid token for given session identification!")
+                                 );
 
                 }
 
@@ -2525,35 +2568,68 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                 #region Token is blocked
 
                 else if (authenticationResult == TokenAuthorizationResultType.Blocked)
-                    return AuthStopResult.Blocked(Id,
-                                                      this,
-                                                      SessionId:    SessionId,
-                                                      ProviderId:   Id,
-                                                      Description:  I18NString.Create(Languages.en,  "Token is blocked!"));
+                    result = AuthStopResult.Blocked(
+                                 Id,
+                                 this,
+                                 SessionId:    SessionId,
+                                 ProviderId:   Id,
+                                 Description:  I18NString.Create(Languages.en,  "Token is blocked!")
+                             );
 
                 #endregion
 
                 #region ...fall through!
 
                 else
-                    return AuthStopResult.Unspecified(Id,
-                                                      this,
-                                                      null,
-                                                      SessionId);
+                    result = AuthStopResult.Unspecified(
+                                 Id,
+                                 this,
+                                 null,
+                                 SessionId
+                             );
 
                 #endregion
 
             }
 
-            #region Unkown Token!
+            result ??= AuthStopResult.NotAuthorized(
+                           Id,
+                           this,
+                           SessionId:    SessionId,
+                           ProviderId:   Id,
+                           Description:  I18NString.Create(Languages.en, "Unkown token!")
+                       );
 
-            return AuthStopResult.NotAuthorized(Id,
-                                                    this,
-                                                    SessionId:    SessionId,
-                                                    ProviderId:   Id,
-                                                    Description:  I18NString.Create(Languages.en, "Unkown token!"));
+
+            #region Send OnAuthorizeStopResponse event
+
+            var endTime = Timestamp.Now;
+
+            await LogEvent(
+                      OnAuthorizeStopResponse,
+                      loggingDelegate => loggingDelegate.Invoke(
+                          endTime,
+                          RequestTimestamp.Value,
+                          this,
+                          Id.ToString(),
+                          EventTrackingId,
+                          RoamingNetwork.Id,
+                          null,
+                          null,
+                          OperatorId,
+                          ChargingLocation,
+                          SessionId,
+                          CPOPartnerSessionId,
+                          LocalAuthentication,
+                          RequestTimeout,
+                          result,
+                          endTime - startTime
+                      )
+                  );
 
             #endregion
+
+            return result;
 
         }
 
