@@ -25,6 +25,8 @@ using Newtonsoft.Json.Linq;
 
 using org.GraphDefined.Vanaheimr.Illias;
 using org.GraphDefined.Vanaheimr.Hermod.HTTP;
+using System.Collections.Generic;
+using cloud.charging.open.protocols.OCPPv2_1;
 
 #endregion
 
@@ -40,11 +42,11 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         #region Data
 
-        private readonly ConcurrentDictionary<ChargingPool_Id,     ChargingPool>                  ChargingPools;
-
-        private readonly ConcurrentDictionary<LocalAuthentication, TokenAuthorizationResultType>  AuthorizationDatabase;
-        private readonly ConcurrentDictionary<ChargingSession_Id,  SessionInfo>                   SessionDatabase;
-        private readonly ConcurrentDictionary<ChargingSession_Id,  ChargeDetailRecord>            ChargeDetailRecordDatabase;
+        private readonly ConcurrentDictionary<ChargingPool_Id,     ChargingPool>                  ChargingPools                  = [];
+        private readonly ConcurrentDictionary<LocalAuthentication, TokenAuthorizationResultType>  AuthorizationDatabase          = [];
+        private readonly ConcurrentDictionary<ChargingSession_Id,  SessionInfo>                   SessionDatabase                = [];
+        private readonly ConcurrentDictionary<ChargingSession_Id,  ChargeDetailRecord>            ChargeDetailRecordDatabase     = [];
+        private readonly ConcurrentDictionary<User_Id,             RegisterEMobilityAccountData>  RegisterEMobilityAccountData   = [];
 
         #endregion
 
@@ -93,7 +95,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         #endregion
 
-        public HTTPClientLogger HTTPLogger { get; }
+        public HTTPClientLogger? HTTPLogger { get; }
 
         #endregion
 
@@ -234,12 +236,6 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             this.Id                          = Id;
             this.RoamingNetwork              = RoamingNetwork;
-
-            this.ChargingPools               = new ConcurrentDictionary<ChargingPool_Id,     ChargingPool>();
-
-            this.AuthorizationDatabase       = new ConcurrentDictionary<LocalAuthentication, TokenAuthorizationResultType>();
-            this.SessionDatabase             = new ConcurrentDictionary<ChargingSession_Id,  SessionInfo>();
-            this.ChargeDetailRecordDatabase  = new ConcurrentDictionary<ChargingSession_Id,  ChargeDetailRecord>();
 
         }
 
@@ -2716,7 +2712,6 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         #endregion
 
-
         #region Outgoing requests towards the roaming network
 
         //ToDo: Send Tokens!
@@ -3148,6 +3143,65 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         }
 
         #endregion
+
+
+
+        public async Task<RegisterEMobilityAccountData2> RegisterAccount(RegisterEMobilityAccountData  RegisterEMobilityAccountData,
+
+                                                                         DateTime?                     Timestamp,
+                                                                         EventTracking_Id?             EventTrackingId,
+                                                                         TimeSpan?                     RequestTimeout,
+                                                                         CancellationToken             CancellationToken = default)
+        {
+
+            //ToDo: Verify signatures!
+
+            var userData = new RegisterEMobilityAccountData2(
+                               User_Id.Parse(RandomExtensions.RandomString(16)),
+                               RegisterEMobilityAccountData
+                           );
+
+            //ToDo: Sign userData!
+
+            this.RegisterEMobilityAccountData.TryAdd(
+                     userData.UserId,
+                     userData
+                 );
+
+            return userData;
+
+        }
+
+
+        public async Task<IEnumerable<ChargingTicket>>
+
+            RequestChargingTickets(IEnumerable<RequestChargingTicketsData>  RequestChargingTicketsData,
+
+                                   DateTime?                                Timestamp,
+                                   EventTracking_Id?                        EventTrackingId,
+                                   TimeSpan?                                RequestTimeout,
+                                   CancellationToken                        CancellationToken = default)
+
+        {
+
+            return [];
+
+        }
+
+        public async Task<IEnumerable<String>>
+
+            RevokeChargingTickets(IEnumerable<RevokeChargingTicketsData>  RevokeChargingTicketsData,
+
+                                  DateTime?                               Timestamp,
+                                  EventTracking_Id?                       EventTrackingId,
+                                  TimeSpan?                               RequestTimeout,
+                                  CancellationToken                       CancellationToken = default)
+
+        {
+
+            return [];
+
+        }
 
 
 
