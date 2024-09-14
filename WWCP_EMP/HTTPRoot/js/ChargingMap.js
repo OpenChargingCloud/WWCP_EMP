@@ -1,4 +1,4 @@
-var DataURI = "https://e-mobility.belectric-data.com/RNs/Prod";
+var DataURI = "https://api.charging.cloud/RNs/Prod";
 var __EVSEStatus = {};
 var __UserPositon = null;
 var worker = null;
@@ -13,10 +13,10 @@ function Startup(L) {
     if (QueryParameters.hasOwnProperty("RN")) {
         switch (QueryParameters.RN) {
             case "QA":
-                DataURI = "https://e-mobility.belectric-data.com/RNs/QA";
+                DataURI = "https://api.charging.cloud/RNs/QA";
                 break;
             case "Prod":
-                DataURI = "https://e-mobility.belectric-data.com/RNs/Prod";
+                DataURI = "https://api.charging.cloud/RNs/Prod";
                 break;
             case "QALocal":
                 DataURI = "http://127.0.0.1:3004/RNs/QA";
@@ -94,7 +94,7 @@ function DrawMap(ChargingPools, Run, filterpattern, map, markers, customCircleMa
 function DrawMap2(EVSEStatus, Run, filterpattern, map, markers, customCircleMarker, EChargingIcon) {
     var CurrentEVSEStatus = {};
     for (var evseid in EVSEStatus) {
-        var status = WWCP.EVSEStatusTypes.unknown;
+        var status = WWCP.EVSEStatusType.unknown;
         var timestamped = EVSEStatus[evseid];
         for (var timestamp in timestamped) {
             status = timestamped[timestamp];
@@ -333,13 +333,13 @@ var WWCP;
         SocketTypes[SocketTypes["CCSCombo2Plug_CableAttached"] = 4] = "CCSCombo2Plug_CableAttached";
     })(WWCP.SocketTypes || (WWCP.SocketTypes = {}));
     var SocketTypes = WWCP.SocketTypes;
-    (function (EVSEStatusTypes) {
-        EVSEStatusTypes[EVSEStatusTypes["unknown"] = 0] = "unknown";
-        EVSEStatusTypes[EVSEStatusTypes["available"] = 1] = "available";
-        EVSEStatusTypes[EVSEStatusTypes["reserved"] = 2] = "reserved";
-        EVSEStatusTypes[EVSEStatusTypes["charging"] = 3] = "charging";
-    })(WWCP.EVSEStatusTypes || (WWCP.EVSEStatusTypes = {}));
-    var EVSEStatusTypes = WWCP.EVSEStatusTypes;
+    (function (EVSEStatusType) {
+        EVSEStatusType[EVSEStatusType["unknown"] = 0] = "unknown";
+        EVSEStatusType[EVSEStatusType["available"] = 1] = "available";
+        EVSEStatusType[EVSEStatusType["reserved"] = 2] = "reserved";
+        EVSEStatusType[EVSEStatusType["charging"] = 3] = "charging";
+    })(WWCP.EVSEStatusType || (WWCP.EVSEStatusType = {}));
+    var EVSEStatusType = WWCP.EVSEStatusType;
     var I18NString = (function () {
         function I18NString(JSON) {
             if (JSON !== undefined) {

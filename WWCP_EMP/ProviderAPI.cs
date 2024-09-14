@@ -420,7 +420,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                  return SendEVSERemoteStarted(
                                                      new HTTPResponse.Builder(Request) {
                                                          HTTPStatusCode   = HTTPStatusCode.Unauthorized,
-                                                         WWWAuthenticate  = @"Basic realm=""" + WWWAuthenticationRealm + @"""",
+                                                         WWWAuthenticate  = WWWAuthenticate.Basic(WWWAuthenticationRealm),
                                                          Server           = HTTPServer.DefaultServerName,
                                                          Date             = DateTime.Now,
                                                          Connection       = "close"
@@ -1024,7 +1024,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                       return SendEVSERemoteStarted(
                                           new HTTPResponse.Builder(Request) {
                                               HTTPStatusCode   = HTTPStatusCode.Unauthorized,
-                                              WWWAuthenticate  = @"Basic realm=""" + WWWAuthenticationRealm + @"""",
+                                              WWWAuthenticate  = WWWAuthenticate.Basic(WWWAuthenticationRealm),
                                               Server           = HTTPServer.DefaultServerName,
                                               Date             = DateTime.Now,
                                               Connection       = "close"
@@ -1317,7 +1317,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                  return SendEVSERemoteStopped(
                                                      new HTTPResponse.Builder(Request) {
                                                          HTTPStatusCode   = HTTPStatusCode.Unauthorized,
-                                                         WWWAuthenticate  = @"Basic realm=""" + WWWAuthenticationRealm + @"""",
+                                                         WWWAuthenticate  = WWWAuthenticate.Basic(WWWAuthenticationRealm),
                                                          Server           = HTTPServer.DefaultServerName,
                                                          Date             = DateTime.Now,
                                                          Connection       = "close"
