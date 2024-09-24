@@ -423,7 +423,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                          WWWAuthenticate  = WWWAuthenticate.Basic(WWWAuthenticationRealm),
                                                          Server           = HTTPServer.DefaultServerName,
                                                          Date             = DateTime.Now,
-                                                         Connection       = "close"
+                                                         Connection       = ConnectionType.Close
                                                      });
 
                                              }
@@ -797,7 +797,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              AccessControlAllowMethods  = new[] { "POST" },
                                                              AccessControlAllowHeaders  = new[] { "Content-Type", "Accept", "Authorization" },
                                                              Location                   = Location.Parse("~/ext/BoschEBike/Reservations/" + result.Reservation.Id.ToString()),
-                                                             Connection                 = "close",
+                                                             Connection                 = ConnectionType.Close,
                                                              ContentType                = HTTPContentType.Application.JSON_UTF8,
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("ReservationId",           result.Reservation.Id.       ToString()),
@@ -864,7 +864,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "Unknown reservation identification!")
                                                                                           ).ToUTF8Bytes(),
-                                                             Connection                 = "close"
+                                                             Connection                 = ConnectionType.Close
                                                          });
 
                                                  #endregion
@@ -884,7 +884,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "Unknown EVSE!")
                                                                                           ).ToUTF8Bytes(),
-                                                             Connection                 = "close"
+                                                             Connection                 = ConnectionType.Close
                                                          });
 
                                                  #endregion
@@ -904,7 +904,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The EVSE is already reserved!")
                                                                                           ).ToUTF8Bytes(),
-                                                             Connection                 = "close"
+                                                             Connection                 = ConnectionType.Close
                                                          });
 
                                                  #endregion
@@ -924,7 +924,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The EVSE is already in use!")
                                                                                           ).ToUTF8Bytes(),
-                                                             Connection                 = "close"
+                                                             Connection                 = ConnectionType.Close
                                                          });
 
                                                  #endregion
@@ -944,7 +944,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The EVSE is out of service!")
                                                                                           ).ToUTF8Bytes(),
-                                                             Connection                 = "close"
+                                                             Connection                 = ConnectionType.Close
                                                          });
 
                                                  #endregion
@@ -964,7 +964,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "The request did not succeed within the given time!")
                                                                                           ).ToUTF8Bytes(),
-                                                             Connection                 = "close"
+                                                             Connection                 = ConnectionType.Close
                                                          });
 
                                                  #endregion
@@ -984,7 +984,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                              Content                    = JSONObject.Create(
                                                                                               new JProperty("description",  "No reservation was possible!")
                                                                                           ).ToUTF8Bytes(),
-                                                             Connection                 = "close"
+                                                             Connection                 = ConnectionType.Close
                                                          });
 
                                                  #endregion
@@ -1027,7 +1027,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                               WWWAuthenticate  = WWWAuthenticate.Basic(WWWAuthenticationRealm),
                                               Server           = HTTPServer.DefaultServerName,
                                               Date             = DateTime.Now,
-                                              Connection       = "close"
+                                              Connection       = ConnectionType.Close
                                           });
 
                                   }
@@ -1320,7 +1320,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                          WWWAuthenticate  = WWWAuthenticate.Basic(WWWAuthenticationRealm),
                                                          Server           = HTTPServer.DefaultServerName,
                                                          Date             = DateTime.Now,
-                                                         Connection       = "close"
+                                                         Connection       = ConnectionType.Close
                                                      });
 
                                              }
