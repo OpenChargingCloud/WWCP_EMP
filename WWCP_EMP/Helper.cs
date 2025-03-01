@@ -19,8 +19,6 @@
 
 using org.GraphDefined.Vanaheimr.Illias;
 
-using social.OpenData.UsersAPI;
-
 using cloud.charging.open.protocols.WWCP.EMP;
 
 #endregion

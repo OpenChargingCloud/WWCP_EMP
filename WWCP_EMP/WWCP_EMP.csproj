@@ -8,11 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Hermod\Hermod\Hermod.csproj" />
-    <ProjectReference Include="..\..\OpenChargingCloudAPI\OpenChargingCloudAPI\OpenChargingCloudAPI.csproj" />
-    <ProjectReference Include="..\..\SMSAPI\SMSAPI\SMSAPI.csproj" />
-    <ProjectReference Include="..\..\Styx\Styx\Styx.csproj" />
-    <ProjectReference Include="..\..\TelegramBotAPI\TelegramBotAPI\TelegramBotAPI.csproj" />
-    <ProjectReference Include="..\..\UsersAPI\UsersAPI\UsersAPI.csproj" />
     <ProjectReference Include="..\..\WWCP_Core\WWCP_Core\WWCP_Core.csproj" />
     <ProjectReference Include="..\..\WWCP_Core\WWCP_OverlayNetworking2\WWCP_OverlayNetworking2.csproj" />
   </ItemGroup>
