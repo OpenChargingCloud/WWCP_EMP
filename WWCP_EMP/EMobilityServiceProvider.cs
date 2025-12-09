@@ -282,7 +282,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="RoamingNetwork">A roaming network to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -290,7 +290,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddRoamingNetwork(IRoamingNetwork     RoamingNetwork,
 
-                              DateTime?           Timestamp,
+                              DateTimeOffset?     RequestTimestamp,
                               EventTracking_Id?   EventTrackingId,
                               TimeSpan?           RequestTimeout,
                               CancellationToken   CancellationToken)
@@ -313,7 +313,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="RoamingNetwork">A roaming network to add, if it does not already exist.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -321,7 +321,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddRoamingNetworkIfNotExists(IRoamingNetwork     RoamingNetwork,
 
-                                         DateTime?           Timestamp,
+                                         DateTimeOffset?     RequestTimestamp,
                                          EventTracking_Id?   EventTrackingId,
                                          TimeSpan?           RequestTimeout,
                                          CancellationToken   CancellationToken)
@@ -344,7 +344,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="RoamingNetwork">A roaming network to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -352,7 +352,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateRoamingNetwork(IRoamingNetwork     RoamingNetwork,
 
-                                      DateTime?           Timestamp,
+                                      DateTimeOffset?     RequestTimestamp,
                                       EventTracking_Id?   EventTrackingId,
                                       TimeSpan?           RequestTimeout,
                                       CancellationToken   CancellationToken)
@@ -375,7 +375,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="RoamingNetwork">A roaming network.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -387,7 +387,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                  Object?             OldValue,
                                  Context?            DataSource,
 
-                                 DateTime?           Timestamp,
+                                 DateTimeOffset?     RequestTimestamp,
                                  EventTracking_Id?   EventTrackingId,
                                  TimeSpan?           RequestTimeout,
                                  CancellationToken   CancellationToken)
@@ -410,7 +410,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="RoamingNetwork">A roaming network to upload.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -418,7 +418,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteRoamingNetwork(IRoamingNetwork     RoamingNetwork,
 
-                                 DateTime?           Timestamp,
+                                 DateTimeOffset?     RequestTimestamp,
                                  EventTracking_Id?   EventTrackingId,
                                  TimeSpan?           RequestTimeout,
                                  CancellationToken   CancellationToken)
@@ -442,7 +442,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="RoamingNetworks">An enumeration of roaming networks to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -450,7 +450,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddRoamingNetworks(IEnumerable<IRoamingNetwork>  RoamingNetworks,
 
-                               DateTime?                     Timestamp,
+                               DateTimeOffset?               RequestTimestamp,
                                EventTracking_Id?             EventTrackingId,
                                TimeSpan?                     RequestTimeout,
                                CancellationToken             CancellationToken)
@@ -471,9 +471,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <summary>
         /// Add the given enumeration of roaming networks, if they do not already exist.
         /// </summary>
-        /// <param name="RoamingNetwork">An enumeration of roaming networks to add, if they do not already exist.</param>
+        /// <param name="RoamingNetworks">An enumeration of roaming networks to add, if they do not already exist.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -481,7 +481,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddRoamingNetworksIfNotExist(IEnumerable<IRoamingNetwork>  RoamingNetworks,
 
-                                         DateTime?                     Timestamp,
+                                         DateTimeOffset?               RequestTimestamp,
                                          EventTracking_Id?             EventTrackingId,
                                          TimeSpan?                     RequestTimeout,
                                          CancellationToken             CancellationToken)
@@ -502,9 +502,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <summary>
         /// Add or update the given enumeration of roaming networks.
         /// </summary>
-        /// <param name="RoamingNetwork">An enumeration of roaming networks to add or update.</param>
+        /// <param name="RoamingNetworks">An enumeration of roaming networks to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -512,7 +512,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateRoamingNetworks(IEnumerable<IRoamingNetwork>  RoamingNetworks,
 
-                                       DateTime?                     Timestamp,
+                                       DateTimeOffset?               RequestTimestamp,
                                        EventTracking_Id?             EventTrackingId,
                                        TimeSpan?                     RequestTimeout,
                                        CancellationToken             CancellationToken)
@@ -533,9 +533,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <summary>
         /// Update the EVSE data of the given roaming network within the static EVSE data at the OICP server.
         /// </summary>
-        /// <param name="RoamingNetwork">A roaming network.</param>
+        /// <param name="RoamingNetworks">A roaming network.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -543,7 +543,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateRoamingNetworks(IEnumerable<IRoamingNetwork>  RoamingNetworks,
 
-                                  DateTime?                     Timestamp,
+                                  DateTimeOffset?               RequestTimestamp,
                                   EventTracking_Id?             EventTrackingId,
                                   TimeSpan?                     RequestTimeout,
                                   CancellationToken             CancellationToken)
@@ -564,9 +564,9 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <summary>
         /// Delete the given enumeration of roaming networks.
         /// </summary>
-        /// <param name="RoamingNetwork">An enumeration of roaming networks to delete.</param>
+        /// <param name="RoamingNetworks">An enumeration of roaming networks to delete.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -574,7 +574,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteRoamingNetworks(IEnumerable<IRoamingNetwork>  RoamingNetworks,
 
-                                  DateTime?                     Timestamp,
+                                  DateTimeOffset?               RequestTimestamp,
                                   EventTracking_Id?             EventTrackingId,
                                   TimeSpan?                     RequestTimeout,
                                   CancellationToken             CancellationToken)
@@ -598,7 +598,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="AdminStatusUpdates">An enumeration of roaming network admin status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -606,7 +606,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateRoamingNetworkAdminStatus(IEnumerable<RoamingNetworkAdminStatusUpdate>  AdminStatusUpdates,
 
-                                            DateTime?                                     Timestamp,
+                                            DateTimeOffset?                               RequestTimestamp,
                                             EventTracking_Id?                             EventTrackingId,
                                             TimeSpan?                                     RequestTimeout,
                                             CancellationToken                             CancellationToken)
@@ -627,7 +627,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="StatusUpdates">An enumeration of roaming network status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -635,7 +635,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateRoamingNetworkStatus(IEnumerable<RoamingNetworkStatusUpdate>  StatusUpdates,
 
-                                       DateTime?                                Timestamp,
+                                       DateTimeOffset?                          RequestTimestamp,
                                        EventTracking_Id?                        EventTrackingId,
                                        TimeSpan?                                RequestTimeout,
                                        CancellationToken                        CancellationToken)
@@ -660,7 +660,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationOperator">A charging station operator to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -668,7 +668,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingStationOperator(IChargingStationOperator  ChargingStationOperator,
 
-                                       DateTime?                 Timestamp,
+                                       DateTimeOffset?           RequestTimestamp,
                                        EventTracking_Id?         EventTrackingId,
                                        TimeSpan?                 RequestTimeout,
                                        CancellationToken         CancellationToken)
@@ -691,7 +691,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationOperator">A charging station operator to add, if it does not already exist.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -699,7 +699,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingStationOperatorIfNotExists(IChargingStationOperator  ChargingStationOperator,
 
-                                                  DateTime?                 Timestamp,
+                                                  DateTimeOffset?           RequestTimestamp,
                                                   EventTracking_Id?         EventTrackingId,
                                                   TimeSpan?                 RequestTimeout,
                                                   CancellationToken         CancellationToken)
@@ -722,7 +722,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationOperator">A charging station operator to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -730,7 +730,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateChargingStationOperator(IChargingStationOperator  ChargingStationOperator,
 
-                                               DateTime?                 Timestamp,
+                                               DateTimeOffset?           RequestTimestamp,
                                                EventTracking_Id?         EventTrackingId,
                                                TimeSpan?                 RequestTimeout,
                                                CancellationToken         CancellationToken)
@@ -758,7 +758,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <param name="OldValue">The optional old value of the charging station operator property to update.</param>
         /// <param name="DataSource">An optional data source or context for the data change.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -770,7 +770,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                           Object?                   OldValue,
                                           Context?                  DataSource,
 
-                                          DateTime?                 Timestamp,
+                                          DateTimeOffset?           RequestTimestamp,
                                           EventTracking_Id?         EventTrackingId,
                                           TimeSpan?                 RequestTimeout,
                                           CancellationToken         CancellationToken)
@@ -793,7 +793,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationOperator">A charging station operator to delete.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -801,7 +801,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteChargingStationOperator(IChargingStationOperator  ChargingStationOperator,
 
-                                          DateTime?                 Timestamp,
+                                          DateTimeOffset?           RequestTimestamp,
                                           EventTracking_Id?         EventTrackingId,
                                           TimeSpan?                 RequestTimeout,
                                           CancellationToken         CancellationToken)
@@ -825,7 +825,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationOperators">An enumeration of charging station operators to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -833,7 +833,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingStationOperators(IEnumerable<IChargingStationOperator>  ChargingStationOperators,
 
-                                        DateTime?                              Timestamp,
+                                        DateTimeOffset?                        RequestTimestamp,
                                         EventTracking_Id?                      EventTrackingId,
                                         TimeSpan?                              RequestTimeout,
                                         CancellationToken                      CancellationToken)
@@ -856,7 +856,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationOperators">An enumeration of charging station operators to add, if they do not already exist.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -864,7 +864,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingStationOperatorsIfNotExist(IEnumerable<IChargingStationOperator>  ChargingStationOperators,
 
-                                                  DateTime?                              Timestamp,
+                                                  DateTimeOffset?                        RequestTimestamp,
                                                   EventTracking_Id?                      EventTrackingId,
                                                   TimeSpan?                              RequestTimeout,
                                                   CancellationToken                      CancellationToken)
@@ -887,7 +887,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationOperators">An enumeration of charging station operators to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -895,7 +895,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateChargingStationOperators(IEnumerable<IChargingStationOperator>  ChargingStationOperators,
 
-                                                DateTime?                              Timestamp,
+                                                DateTimeOffset?                        RequestTimestamp,
                                                 EventTracking_Id?                      EventTrackingId,
                                                 TimeSpan?                              RequestTimeout,
                                                 CancellationToken                      CancellationToken)
@@ -918,7 +918,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationOperators">An enumeration of charging station operators to update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -926,7 +926,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingStationOperators(IEnumerable<IChargingStationOperator>  ChargingStationOperators,
 
-                                           DateTime?                              Timestamp,
+                                           DateTimeOffset?                        RequestTimestamp,
                                            EventTracking_Id?                      EventTrackingId,
                                            TimeSpan?                              RequestTimeout,
                                            CancellationToken                      CancellationToken)
@@ -949,7 +949,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationOperators">An enumeration of charging station operators to delete.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -957,7 +957,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteChargingStationOperators(IEnumerable<IChargingStationOperator>  ChargingStationOperators,
 
-                                           DateTime?                              Timestamp,
+                                           DateTimeOffset?                        RequestTimestamp,
                                            EventTracking_Id?                      EventTrackingId,
                                            TimeSpan?                              RequestTimeout,
                                            CancellationToken                      CancellationToken)
@@ -980,9 +980,8 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// Update the given enumeration of charging station operator admin status updates.
         /// </summary>
         /// <param name="AdminStatusUpdates">An enumeration of charging station operator admin status updates.</param>
-        /// <param name="TransmissionType">Whether to send the charging station operator admin status updates directly or enqueue it for a while.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -990,7 +989,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingStationOperatorAdminStatus(IEnumerable<ChargingStationOperatorAdminStatusUpdate>  AdminStatusUpdates,
 
-                                                     DateTime?                                              Timestamp,
+                                                     DateTimeOffset?                                        RequestTimestamp,
                                                      EventTracking_Id?                                      EventTrackingId,
                                                      TimeSpan?                                              RequestTimeout,
                                                      CancellationToken                                      CancellationToken)
@@ -1011,9 +1010,8 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// Update the given enumeration of charging station operator status updates.
         /// </summary>
         /// <param name="StatusUpdates">An enumeration of charging station operator status updates.</param>
-        /// <param name="TransmissionType">Whether to send the charging station operator status updates directly or enqueue it for a while.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -1021,7 +1019,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingStationOperatorStatus(IEnumerable<ChargingStationOperatorStatusUpdate>  StatusUpdates,
 
-                                                DateTime?                                         Timestamp,
+                                                DateTimeOffset?                                   RequestTimestamp,
                                                 EventTracking_Id?                                 EventTrackingId,
                                                 TimeSpan?                                         RequestTimeout,
                                                 CancellationToken                                 CancellationToken)
@@ -1046,7 +1044,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPool">A charging pool to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1054,7 +1052,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingPool(IChargingPool       ChargingPool,
 
-                            DateTime?           Timestamp,
+                            DateTimeOffset?     RequestTimestamp,
                             EventTracking_Id?   EventTrackingId,
                             TimeSpan?           RequestTimeout,
                             CancellationToken   CancellationToken)
@@ -1077,7 +1075,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPool">A charging pool to add, if it does not already exist.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1085,7 +1083,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingPoolIfNotExists(IChargingPool       ChargingPool,
 
-                                       DateTime?           Timestamp,
+                                       DateTimeOffset?     RequestTimestamp,
                                        EventTracking_Id?   EventTrackingId,
                                        TimeSpan?           RequestTimeout,
                                        CancellationToken   CancellationToken)
@@ -1108,7 +1106,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPool">A charging pool to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1116,7 +1114,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateChargingPool(IChargingPool       ChargingPool,
 
-                                    DateTime?           Timestamp,
+                                    DateTimeOffset?     RequestTimestamp,
                                     EventTracking_Id?   EventTrackingId,
                                     TimeSpan?           RequestTimeout,
                                     CancellationToken   CancellationToken)
@@ -1144,7 +1142,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <param name="OldValue">The optional old value of the charging pool property to update.</param>
         /// <param name="DataSource">An optional data source or context for the data change.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1156,7 +1154,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                Object?             OldValue,
                                Context?            DataSource,
 
-                               DateTime?           Timestamp,
+                               DateTimeOffset?     RequestTimestamp,
                                EventTracking_Id?   EventTrackingId,
                                TimeSpan?           RequestTimeout,
                                CancellationToken   CancellationToken)
@@ -1179,7 +1177,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPool">A charging pool to delete.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1187,7 +1185,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteChargingPool(IChargingPool       ChargingPool,
 
-                               DateTime?           Timestamp,
+                               DateTimeOffset?     RequestTimestamp,
                                EventTracking_Id?   EventTrackingId,
                                TimeSpan?           RequestTimeout,
                                CancellationToken   CancellationToken)
@@ -1211,7 +1209,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPools">An enumeration of charging pools to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1219,7 +1217,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingPools(IEnumerable<IChargingPool>  ChargingPools,
 
-                             DateTime?                   Timestamp,
+                             DateTimeOffset?             RequestTimestamp,
                              EventTracking_Id?           EventTrackingId,
                              TimeSpan?                   RequestTimeout,
                              CancellationToken           CancellationToken)
@@ -1242,7 +1240,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPools">An enumeration of charging pools to add, if they do not already exist.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1250,7 +1248,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingPoolsIfNotExist(IEnumerable<IChargingPool>  ChargingPools,
 
-                                       DateTime?                   Timestamp,
+                                       DateTimeOffset?             RequestTimestamp,
                                        EventTracking_Id?           EventTrackingId,
                                        TimeSpan?                   RequestTimeout,
                                        CancellationToken           CancellationToken)
@@ -1273,7 +1271,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPools">An enumeration of charging pools to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1281,7 +1279,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateChargingPools(IEnumerable<IChargingPool>  ChargingPools,
 
-                                     DateTime?                   Timestamp,
+                                     DateTimeOffset?             RequestTimestamp,
                                      EventTracking_Id?           EventTrackingId,
                                      TimeSpan?                   RequestTimeout,
                                      CancellationToken           CancellationToken)
@@ -1304,7 +1302,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPools">An enumeration of charging pools to update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1312,7 +1310,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingPools(IEnumerable<IChargingPool>  ChargingPools,
 
-                                DateTime?                   Timestamp,
+                                DateTimeOffset?             RequestTimestamp,
                                 EventTracking_Id?           EventTrackingId,
                                 TimeSpan?                   RequestTimeout,
                                 CancellationToken           CancellationToken)
@@ -1335,7 +1333,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPools">An enumeration of charging pools to delete.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1343,7 +1341,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteChargingPools(IEnumerable<IChargingPool>  ChargingPools,
 
-                                DateTime?                   Timestamp,
+                                DateTimeOffset?             RequestTimestamp,
                                 EventTracking_Id?           EventTrackingId,
                                 TimeSpan?                   RequestTimeout,
                                 CancellationToken           CancellationToken)
@@ -1367,7 +1365,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="AdminStatusUpdates">An enumeration of charging pool admin status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1375,7 +1373,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingPoolAdminStatus(IEnumerable<ChargingPoolAdminStatusUpdate>  AdminStatusUpdates,
 
-                                          DateTime?                                   Timestamp,
+                                          DateTimeOffset?                             RequestTimestamp,
                                           EventTracking_Id?                           EventTrackingId,
                                           TimeSpan?                                   RequestTimeout,
                                           CancellationToken                           CancellationToken)
@@ -1397,7 +1395,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="StatusUpdates">An enumeration of charging pool status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -1405,7 +1403,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingPoolStatus(IEnumerable<ChargingPoolStatusUpdate>  StatusUpdates,
 
-                                     DateTime?                              Timestamp,
+                                     DateTimeOffset?                        RequestTimestamp,
                                      EventTracking_Id?                      EventTrackingId,
                                      TimeSpan?                              RequestTimeout,
                                      CancellationToken                      CancellationToken)
@@ -1426,7 +1424,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingPoolEnergyStatusUpdates">An enumeration of charging pool energy status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -1434,7 +1432,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingPoolEnergyStatus(IEnumerable<ChargingPoolEnergyStatusUpdate>  ChargingPoolEnergyStatusUpdates,
 
-                                           DateTime?                                    Timestamp,
+                                           DateTimeOffset?                              RequestTimestamp,
                                            EventTracking_Id?                            EventTrackingId,
                                            TimeSpan?                                    RequestTimeout,
                                            CancellationToken                            CancellationToken)
@@ -1460,7 +1458,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStation">A charging station to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1468,7 +1466,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingStation(IChargingStation   ChargingStation,
 
-                               DateTime?          Timestamp,
+                               DateTimeOffset?    RequestTimestamp,
                                EventTracking_Id?  EventTrackingId,
                                TimeSpan?          RequestTimeout,
                                CancellationToken  CancellationToken)
@@ -1491,7 +1489,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStation">A charging station to add, if it does not already exist.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1499,7 +1497,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingStationIfNotExists(IChargingStation   ChargingStation,
 
-                                          DateTime?          Timestamp,
+                                          DateTimeOffset?    RequestTimestamp,
                                           EventTracking_Id?  EventTrackingId,
                                           TimeSpan?          RequestTimeout,
                                           CancellationToken  CancellationToken)
@@ -1522,7 +1520,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStation">A charging station to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1530,7 +1528,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateChargingStation(IChargingStation   ChargingStation,
 
-                                       DateTime?          Timestamp,
+                                       DateTimeOffset?    RequestTimestamp,
                                        EventTracking_Id?  EventTrackingId,
                                        TimeSpan?          RequestTimeout,
                                        CancellationToken  CancellationToken)
@@ -1558,7 +1556,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <param name="OldValue">The optional old value of the charging station property to update.</param>
         /// <param name="DataSource">An optional data source or context for the data change.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1570,7 +1568,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                   Object?            NewValue,
                                   Context?           DataSource,
 
-                                  DateTime?          Timestamp,
+                                  DateTimeOffset?    RequestTimestamp,
                                   EventTracking_Id?  EventTrackingId,
                                   TimeSpan?          RequestTimeout,
                                   CancellationToken  CancellationToken)
@@ -1593,7 +1591,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStation">A charging station to delete.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1601,7 +1599,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteChargingStation(IChargingStation    ChargingStation,
 
-                                  DateTime?           Timestamp,
+                                  DateTimeOffset?     RequestTimestamp,
                                   EventTracking_Id?   EventTrackingId,
                                   TimeSpan?           RequestTimeout,
                                   CancellationToken   CancellationToken)
@@ -1625,7 +1623,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStations">An enumeration of charging stations to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1633,7 +1631,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingStations(IEnumerable<IChargingStation>  ChargingStations,
 
-                                DateTime?                      Timestamp,
+                                DateTimeOffset?                RequestTimestamp,
                                 EventTracking_Id?              EventTrackingId,
                                 TimeSpan?                      RequestTimeout,
                                 CancellationToken              CancellationToken)
@@ -1656,7 +1654,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStations">An enumeration of charging stations to add, if they do not already exist..</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1664,7 +1662,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddChargingStationsIfNotExist(IEnumerable<IChargingStation>  ChargingStations,
 
-                                          DateTime?                      Timestamp,
+                                          DateTimeOffset?                RequestTimestamp,
                                           EventTracking_Id?              EventTrackingId,
                                           TimeSpan?                      RequestTimeout,
                                           CancellationToken              CancellationToken)
@@ -1687,7 +1685,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStations">An enumeration of charging stations to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1695,7 +1693,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateChargingStations(IEnumerable<IChargingStation>  ChargingStations,
 
-                                        DateTime?                      Timestamp,
+                                        DateTimeOffset?                RequestTimestamp,
                                         EventTracking_Id?              EventTrackingId,
                                         TimeSpan?                      RequestTimeout,
                                         CancellationToken              CancellationToken)
@@ -1718,7 +1716,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStations">An enumeration of charging stations to update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1726,7 +1724,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingStations(IEnumerable<IChargingStation>  ChargingStations,
 
-                                   DateTime?                      Timestamp,
+                                   DateTimeOffset?                RequestTimestamp,
                                    EventTracking_Id?              EventTrackingId,
                                    TimeSpan?                      RequestTimeout,
                                    CancellationToken              CancellationToken)
@@ -1749,7 +1747,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStations">An enumeration of charging stations to delete.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1757,7 +1755,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteChargingStations(IEnumerable<IChargingStation>  ChargingStations,
 
-                                   DateTime?                      Timestamp,
+                                   DateTimeOffset?                RequestTimestamp,
                                    EventTracking_Id?              EventTrackingId,
                                    TimeSpan?                      RequestTimeout,
                                    CancellationToken              CancellationToken)
@@ -1781,7 +1779,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="AdminStatusUpdates">An enumeration of charging station admin status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1789,7 +1787,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingStationAdminStatus(IEnumerable<ChargingStationAdminStatusUpdate>  AdminStatusUpdates,
 
-                                             DateTime?                                      Timestamp,
+                                             DateTimeOffset?                                RequestTimestamp,
                                              EventTracking_Id?                              EventTrackingId,
                                              TimeSpan?                                      RequestTimeout,
                                              CancellationToken                              CancellationToken)
@@ -1811,7 +1809,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="StatusUpdates">An enumeration of charging station status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -1819,7 +1817,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingStationStatus(IEnumerable<ChargingStationStatusUpdate>  StatusUpdates,
 
-                                        DateTime?                                 Timestamp,
+                                        DateTimeOffset?                           RequestTimestamp,
                                         EventTracking_Id?                         EventTrackingId,
                                         TimeSpan?                                 RequestTimeout,
                                         CancellationToken                         CancellationToken)
@@ -1841,7 +1839,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargingStationEnergyStatusUpdates">An enumeration of charging station energy status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -1849,7 +1847,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateChargingStationEnergyStatus(IEnumerable<ChargingStationEnergyStatusUpdate>  ChargingStationEnergyStatusUpdates,
 
-                                              DateTime?                                       Timestamp,
+                                              DateTimeOffset?                                 RequestTimestamp,
                                               EventTracking_Id?                               EventTrackingId,
                                               TimeSpan?                                       RequestTimeout,
                                               CancellationToken                               CancellationToken)
@@ -1875,7 +1873,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSE">An EVSE to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1883,7 +1881,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddEVSE(IEVSE              EVSE,
 
-                    DateTime?          Timestamp,
+                    DateTimeOffset?    RequestTimestamp,
                     EventTracking_Id?  EventTrackingId,
                     TimeSpan?          RequestTimeout,
                     CancellationToken  CancellationToken)
@@ -1906,7 +1904,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSE">An EVSE to add, if it does not already exist.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1914,7 +1912,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddEVSEIfNotExists(IEVSE              EVSE,
 
-                               DateTime?          Timestamp,
+                               DateTimeOffset?    RequestTimestamp,
                                EventTracking_Id?  EventTrackingId,
                                TimeSpan?          RequestTimeout,
                                CancellationToken  CancellationToken)
@@ -1937,7 +1935,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSE">An EVSE to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1945,7 +1943,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateEVSE(IEVSE              EVSE,
 
-                            DateTime?          Timestamp,
+                            DateTimeOffset?    RequestTimestamp,
                             EventTracking_Id?  EventTrackingId,
                             TimeSpan?          RequestTimeout,
                             CancellationToken  CancellationToken)
@@ -1973,7 +1971,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <param name="OldValue">The optional old value of the EVSE property to update.</param>
         /// <param name="DataSource">An optional data source or context for the data change.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -1985,7 +1983,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                        Object?             NewValue,
                        Context?            DataSource,
 
-                       DateTime?           Timestamp,
+                       DateTimeOffset?     RequestTimestamp,
                        EventTracking_Id?   EventTrackingId,
                        TimeSpan?           RequestTimeout,
                        CancellationToken   CancellationToken)
@@ -2008,7 +2006,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSE">An EVSE to delete.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2016,7 +2014,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteEVSE(IEVSE              EVSE,
 
-                       DateTime?          Timestamp,
+                       DateTimeOffset?    RequestTimestamp,
                        EventTracking_Id?  EventTrackingId,
                        TimeSpan?          RequestTimeout,
                        CancellationToken  CancellationToken)
@@ -2040,7 +2038,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSEs">An enumeration of EVSEs to add.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -2048,7 +2046,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddEVSEs(IEnumerable<IEVSE>  EVSEs,
 
-                     DateTime?           Timestamp,
+                     DateTimeOffset?     RequestTimestamp,
                      EventTracking_Id?   EventTrackingId,
                      TimeSpan?           RequestTimeout,
                      CancellationToken   CancellationToken)
@@ -2071,7 +2069,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSEs">An enumeration of EVSEs to add, if they do not already exist.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -2079,7 +2077,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddEVSEsIfNotExist(IEnumerable<IEVSE>  EVSEs,
 
-                               DateTime?           Timestamp,
+                               DateTimeOffset?     RequestTimestamp,
                                EventTracking_Id?   EventTrackingId,
                                TimeSpan?           RequestTimeout,
                                CancellationToken   CancellationToken)
@@ -2102,7 +2100,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSEs">An enumeration of EVSEs to add or update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2110,7 +2108,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             AddOrUpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
 
-                             DateTime?           Timestamp,
+                             DateTimeOffset?     RequestTimestamp,
                              EventTracking_Id?   EventTrackingId,
                              TimeSpan?           RequestTimeout,
                              CancellationToken   CancellationToken)
@@ -2133,7 +2131,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSEs">An enumeration of EVSEs to update.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2141,7 +2139,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateEVSEs(IEnumerable<IEVSE>  EVSEs,
 
-                        DateTime?           Timestamp,
+                        DateTimeOffset?     RequestTimestamp,
                         EventTracking_Id?   EventTrackingId,
                         TimeSpan?           RequestTimeout,
                         CancellationToken   CancellationToken)
@@ -2164,7 +2162,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSEs">An enumeration of EVSEs to delete.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2172,7 +2170,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             DeleteEVSEs(IEnumerable<IEVSE>  EVSEs,
 
-                        DateTime?           Timestamp,
+                        DateTimeOffset?     RequestTimestamp,
                         EventTracking_Id?   EventTrackingId,
                         TimeSpan?           RequestTimeout,
                         CancellationToken   CancellationToken)
@@ -2196,7 +2194,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="AdminStatusUpdates">An enumeration of EVSE admin status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2204,7 +2202,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateEVSEAdminStatus(IEnumerable<EVSEAdminStatusUpdate>  AdminStatusUpdates,
 
-                                  DateTime?                           Timestamp,
+                                  DateTimeOffset?                     RequestTimestamp,
                                   EventTracking_Id?                   EventTrackingId,
                                   TimeSpan?                           RequestTimeout,
                                   CancellationToken                   CancellationToken)
@@ -2226,7 +2224,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="StatusUpdates">An enumeration of EVSE status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2234,7 +2232,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateEVSEStatus(IEnumerable<EVSEStatusUpdate>  StatusUpdates,
 
-                             DateTime?                      Timestamp,
+                             DateTimeOffset?                RequestTimestamp,
                              EventTracking_Id?              EventTrackingId,
                              TimeSpan?                      RequestTimeout,
                              CancellationToken              CancellationToken)
@@ -2256,7 +2254,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="EVSEEnergyStatusUpdates">An enumeration of EVSE energy status updates.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
@@ -2264,7 +2262,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             UpdateEVSEEnergyStatus(IEnumerable<EVSEEnergyStatusUpdate>  EVSEEnergyStatusUpdates,
 
-                                   DateTime?                            Timestamp,
+                                   DateTimeOffset?                      RequestTimestamp,
                                    EventTracking_Id?                    EventTrackingId,
                                    TimeSpan?                            RequestTimeout,
                                    CancellationToken                    CancellationToken)
@@ -2296,7 +2294,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <param name="CPOPartnerSessionId">An optional session identification of the CPO.</param>
         /// <param name="OperatorId">An optional charging station operator identification.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2309,7 +2307,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                                ChargingSession_Id?          CPOPartnerSessionId,
                                                ChargingStationOperator_Id?  OperatorId,
 
-                                               DateTime?                    RequestTimestamp,
+                                               DateTimeOffset?              RequestTimestamp,
                                                EventTracking_Id?            EventTrackingId,
                                                TimeSpan?                    RequestTimeout,
                                                CancellationToken            CancellationToken)
@@ -2463,7 +2461,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <param name="CPOPartnerSessionId">An optional session identification of the CPO.</param>
         /// <param name="OperatorId">An optional charging station operator identification.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2475,7 +2473,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                               ChargingSession_Id?          CPOPartnerSessionId,
                                               ChargingStationOperator_Id?  OperatorId,
 
-                                              DateTime?                    RequestTimestamp,
+                                              DateTimeOffset?              RequestTimestamp,
                                               EventTracking_Id?            EventTrackingId,
                                               TimeSpan?                    RequestTimeout,
                                               CancellationToken            CancellationToken)
@@ -2640,7 +2638,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// </summary>
         /// <param name="ChargeDetailRecords">An enumeration of charge detail records.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2648,7 +2646,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             IReceiveChargeDetailRecords.ReceiveChargeDetailRecords(IEnumerable<ChargeDetailRecord>  ChargeDetailRecords,
 
-                                                                   DateTime?                        RequestTimestamp,
+                                                                   DateTimeOffset?                  RequestTimestamp,
                                                                    EventTracking_Id?                EventTrackingId,
                                                                    TimeSpan?                        RequestTimeout,
                                                                    CancellationToken                CancellationToken)
@@ -2732,7 +2730,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <param name="eMAIds">A list of eMobility account identifications, who can use this reservation.</param>
         /// <param name="PINs">A list of PINs, who can be entered into a pinpad to use this reservation.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2752,7 +2750,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                     IEnumerable<EMobilityAccount_Id>?  eMAIds                 = null,
                     IEnumerable<UInt32>?               PINs                   = null,
 
-                    DateTime?                          RequestTimestamp       = null,
+                    DateTimeOffset?                    RequestTimestamp       = null,
                     EventTracking_Id?                  EventTrackingId        = null,
                     TimeSpan?                          RequestTimeout         = null,
                     CancellationToken                  CancellationToken      = default)
@@ -2813,6 +2811,8 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                              eMAIds,
                                              PINs,
 
+                                             null,
+
                                              RequestTimestamp,
                                              EventTrackingId,
                                              RequestTimeout,
@@ -2868,7 +2868,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         /// <param name="Reason">A reason for this cancellation.</param>
         /// <param name="EVSEId">An optional identification of the EVSE.</param>
         /// 
-        /// <param name="Timestamp">The optional timestamp of the request.</param>
+        /// <param name="RequestTimestamp">The optional timestamp of the request.</param>
         /// <param name="EventTrackingId">An optional event tracking identification for correlating this request with other events.</param>
         /// <param name="RequestTimeout">An optional timeout for this request.</param>
         /// <param name="CancellationToken">An optional token to cancel this request.</param>
@@ -2877,7 +2877,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
             CancelReservation(ChargingReservation_Id                 ReservationId,
                               ChargingReservationCancellationReason  Reason,
 
-                              DateTime?                              Timestamp           = null,
+                              DateTimeOffset?                        Timestamp           = null,
                               EventTracking_Id?                      EventTrackingId     = null,
                               TimeSpan?                              RequestTimeout      = null,
                               CancellationToken                      CancellationToken   = default)
@@ -2886,6 +2886,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
             var response = await RoamingNetwork.CancelReservation(ReservationId,
                                                                   Reason,
+                                                                  null,
 
                                                                   Timestamp,
                                                                   EventTrackingId,
@@ -2933,7 +2934,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                         JObject?                 AdditionalSessionInfos   = null,
                         Auth_Path?               AuthenticationPath       = null,
 
-                        DateTime?                RequestTimestamp         = null,
+                        DateTimeOffset?          RequestTimestamp         = null,
                         EventTracking_Id?        EventTrackingId          = null,
                         TimeSpan?                RequestTimeout           = null,
                         CancellationToken        CancellationToken        = default)
@@ -2984,6 +2985,8 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                      RemoteAuthentication,
                                      AdditionalSessionInfos,
                                      AuthenticationPath,
+
+                                     null,
 
                                      RequestTimestamp,
                                      EventTrackingId,
@@ -3046,7 +3049,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                        RemoteAuthentication?  RemoteAuthentication   = null,
                        Auth_Path?             AuthenticationPath     = null,
 
-                       DateTime?              RequestTimestamp       = null,
+                       DateTimeOffset?        RequestTimestamp       = null,
                        EventTracking_Id?      EventTrackingId        = null,
                        TimeSpan?              RequestTimeout         = null,
                        CancellationToken      CancellationToken      = default)
@@ -3092,6 +3095,8 @@ namespace cloud.charging.open.protocols.WWCP.EMP
                                      Id,
                                      RemoteAuthentication,
                                      AuthenticationPath,
+
+                                     null,
 
                                      RequestTimestamp,
                                      EventTrackingId,
@@ -3148,7 +3153,7 @@ namespace cloud.charging.open.protocols.WWCP.EMP
 
         public async Task<RegisterEMobilityAccountData2> RegisterAccount(RegisterEMobilityAccountData  RegisterEMobilityAccountData,
 
-                                                                         DateTime?                     Timestamp,
+                                                                         DateTimeOffset?               RequestTimestamp,
                                                                          EventTracking_Id?             EventTrackingId,
                                                                          TimeSpan?                     RequestTimeout,
                                                                          CancellationToken             CancellationToken = default)
@@ -3173,35 +3178,35 @@ namespace cloud.charging.open.protocols.WWCP.EMP
         }
 
 
-        public async Task<IEnumerable<ChargingTicket>>
+        //public async Task<IEnumerable<ChargingTicket>>
 
-            RequestChargingTickets(IEnumerable<RequestChargingTicketsData>  RequestChargingTicketsData,
+        //    RequestChargingTickets(IEnumerable<RequestChargingTicketsData>  RequestChargingTicketsData,
 
-                                   DateTime?                                Timestamp,
-                                   EventTracking_Id?                        EventTrackingId,
-                                   TimeSpan?                                RequestTimeout,
-                                   CancellationToken                        CancellationToken = default)
+        //                           DateTimeOffset?                          RequestTimestamp,
+        //                           EventTracking_Id?                        EventTrackingId,
+        //                           TimeSpan?                                RequestTimeout,
+        //                           CancellationToken                        CancellationToken = default)
 
-        {
+        //{
 
-            return [];
+        //    return [];
 
-        }
+        //}
 
-        public async Task<IEnumerable<String>>
+        //public async Task<IEnumerable<String>>
 
-            RevokeChargingTickets(IEnumerable<RevokeChargingTicketsData>  RevokeChargingTicketsData,
+        //    RevokeChargingTickets(IEnumerable<RevokeChargingTicketsData>  RevokeChargingTicketsData,
 
-                                  DateTime?                               Timestamp,
-                                  EventTracking_Id?                       EventTrackingId,
-                                  TimeSpan?                               RequestTimeout,
-                                  CancellationToken                       CancellationToken = default)
+        //                          DateTime?                               Timestamp,
+        //                          EventTracking_Id?                       EventTrackingId,
+        //                          TimeSpan?                               RequestTimeout,
+        //                          CancellationToken                       CancellationToken = default)
 
-        {
+        //{
 
-            return [];
+        //    return [];
 
-        }
+        //}
 
 
 
